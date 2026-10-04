@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "presets": {
+    "typed-branches": {
+      "version": "1.0.0",
+      "source": "local",
+      "manifest_hash": "sha256:7e1a2fec91ca63e416c52ca3ffe26c5b40ca7fe88728f220f962aacec010a93f",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {
+        "claude": [
+          "speckit.specify",
+          "speckit.git.feature"
+        ]
+      },
+      "registered_skills": {
+        "claude": [
+          "speckit-specify",
+          "speckit-git-feature"
+        ]
+      },
+      "installed_at": "2026-10-04T22:56:01.039841+00:00"
+    }
+  }
+}

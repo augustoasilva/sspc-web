@@ -1,0 +1,30 @@
+schema_version: "1.0"
+
+preset:
+  id: typed-branches
+  name: Typed Branches
+  version: "1.0.0"
+  description: "Create type/NNN-slug branches on specify with one sequential counter across all work types."
+
+requires:
+  speckit_version: ">=1.0.13"
+  extensions:
+    - id: git
+      version: ">=1.0.1"
+
+provides:
+  templates:
+    - type: command
+      name: speckit.specify
+      file: commands/specify.md
+      strategy: wrap
+      description: "Keep specification directories aligned with the global branch number."
+    - type: command
+      name: speckit.git.feature
+      file: commands/git-feature.md
+      strategy: replace
+      description: "Create a typed branch using the Git extension's global sequential number."
+
+tags:
+  - git
+  - branching
