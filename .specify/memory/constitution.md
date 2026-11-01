@@ -1,40 +1,3 @@
-<!--
-Sync Impact Report
-==================
-Version change: 1.1.0 → 2.0.0
-Bump rationale: MAJOR. The existing principle XII "Release Discipline" was redefined, not just
-extended: the release pipeline that opened the backmerge pull request and published release
-candidates on every push is replaced by manually run scripts (scripts/publish.sh and
-scripts/promote.sh); CI no longer publishes, deploys or holds secrets; deploys are done in Rancher
-by image version instead of by digest; and the repository's second image, sspc-site, is now
-versioned together with sspc-web.
-
-Principles:
-- Redefined (whole text replaced): XII. Release Discipline
-- Skipped (already present, so the "Design source" item did not apply): VI. Design Source and
-  its related text in VIII. Dependencies and IX. Quality Gates, kept as they are
-- Unchanged: I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XIII
-
-Sections:
-- Product Context and Platform Constraints: unchanged
-- Development Workflow and Definition of Done: unchanged
-- Governance: unchanged
-
-Removed sections: none
-
-Dependent artifacts (read the constitution at runtime; not modified by this command, which is
-limited to this file):
-- .specify/templates/plan-template.md: the "Constitution Check" gate is resolved from this file at
-  plan time and hard-codes no principle numbers, so nothing is stale
-- .specify/templates/spec-template.md: still has no place to list the Stitch screens a UI feature
-  implements, light and dark (Principle VI, open since 1.1.0); no release-related content
-- .specify/templates/tasks-template.md and checklist-template.md: no stale references
-
-Deferred TODOs: none in the constitution. Repository follow-ups: scripts/publish.sh,
-scripts/promote.sh, the CI workflows, DESIGN.md, STITCH-PROMPTS.md and the design:lint and
-tokens:build npm scripts do not exist yet; the main and develop branches already exist.
--->
-
 # sspc-web Constitution
 
 ## Core Principles
@@ -134,13 +97,21 @@ screens keeps it real, and framework-neutral specs keep it portable.
   app; screens are rebuilt from `ui` components and tokens.
 - When a Stitch screen and `DESIGN.md` disagree, `DESIGN.md` wins and the Stitch screen is
   corrected.
-- Design changes start in Stitch and are made by a person: the agent never generates or edits
-  Stitch screens while specifying or implementing.
-- A screen with no Stitch design is designed in Stitch before its spec is written.
+- Design changes start in Stitch. The coding agent MAY generate or edit Stitch screens through the
+  Stitch MCP server only when the owner says so, when a screen is too far from `DESIGN.md` to be
+  fixed locally in code, or when a screen is missing. It MUST ask the owner first, and the owner
+  approves every write to Stitch (each generate or edit call). Without that approval the agent
+  only reads Stitch.
+- The agent's writes are limited to screens it created and to existing screens the owner names or
+  whose edit the owner approves. The agent MUST NOT delete projects or screens, and MUST NOT create
+  or change design systems without the owner's explicit approval.
+- A screen with no Stitch design is created in Stitch, by the owner or by the agent with the
+  owner's approval, before the component or page that uses it is built.
 
 **Rationale**: one machine-checked source for tokens keeps the code, the Stitch designs and any
 future Flutter port aligned, and treating Stitch as a reference keeps screens built from the design
-system instead of pasted markup.
+system instead of pasted markup. Letting the agent write to Stitch only when the owner approves
+each call closes design gaps without giving up the owner's control of the design.
 
 ### VII. Test Discipline with Flutter Parity
 
@@ -289,4 +260,4 @@ users.
 - Every plan and every code review MUST verify compliance with these principles. Deviations MUST be
   justified in writing in the relevant `plan.md`; unjustified deviations block merge.
 
-**Version**: 2.0.0 | **Ratified**: 2026-10-04 | **Last Amended**: 2026-11-01
+**Version**: 2.1.0 | **Ratified**: 2026-10-04 | **Last Amended**: 2026-11-01
