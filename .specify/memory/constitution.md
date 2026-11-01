@@ -1,38 +1,38 @@
 <!--
 Sync Impact Report
 ==================
-Version change: 1.0.0 → 1.1.0
-Bump rationale: MINOR. Two principles added and the guidance of two existing principles
-(Dependencies, Quality Gates) materially expanded. No principle was removed or redefined;
-later principles were only renumbered.
+Version change: 1.1.0 → 2.0.0
+Bump rationale: MAJOR. The existing principle XII "Release Discipline" was redefined, not just
+extended: the release pipeline that opened the backmerge pull request and published release
+candidates on every push is replaced by manually run scripts (scripts/publish.sh and
+scripts/promote.sh); CI no longer publishes, deploys or holds secrets; deploys are done in Rancher
+by image version instead of by digest; and the repository's second image, sspc-site, is now
+versioned together with sspc-web.
 
 Principles:
-- Added: VI. Design Source (right after V. Design System Built with the Screens)
-- Added: XII. Release Discipline (right before XIII. Language and Naming)
-- Modified (content): VIII. Dependencies (Style Dictionary now dev-only; @google/design.md and
-  yaml allowed as dev-only; Stitch MCP server declared a development tool);
-  IX. Quality Gates (design:lint clean; tokens.css in sync with DESIGN.md)
-- Renumbered, content unchanged: Test Discipline with Flutter Parity VI → VII;
-  API Contract IX → X; User Experience X → XI; Language and Naming XI → XIII
-- Unchanged: I, II, III, IV, V
+- Redefined (whole text replaced): XII. Release Discipline
+- Skipped (already present, so the "Design source" item did not apply): VI. Design Source and
+  its related text in VIII. Dependencies and IX. Quality Gates, kept as they are
+- Unchanged: I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XIII
 
 Sections:
-- Product Context and Platform Constraints: principle cross-references updated
-- Development Workflow and Definition of Done: principle cross-references updated
+- Product Context and Platform Constraints: unchanged
+- Development Workflow and Definition of Done: unchanged
 - Governance: unchanged
 
 Removed sections: none
 
-Dependent artifacts (read the constitution at runtime; not modified by this command):
-- .specify/templates/plan-template.md: "Constitution Check" gate must now cover Principles
-  I–XIII; no principle numbers are hard-coded in the template, so nothing is stale
-- .specify/templates/spec-template.md: UI features need a place to list the Stitch screens they
-  implement, light and dark (Principle VI); not present today
-- .specify/templates/tasks-template.md: no stale references
+Dependent artifacts (read the constitution at runtime; not modified by this command, which is
+limited to this file):
+- .specify/templates/plan-template.md: the "Constitution Check" gate is resolved from this file at
+  plan time and hard-codes no principle numbers, so nothing is stale
+- .specify/templates/spec-template.md: still has no place to list the Stitch screens a UI feature
+  implements, light and dark (Principle VI, open since 1.1.0); no release-related content
+- .specify/templates/tasks-template.md and checklist-template.md: no stale references
 
-Deferred TODOs: none in the constitution. Repository follow-ups: DESIGN.md,
-STITCH-PROMPTS.md, the design:lint and tokens:build npm scripts and the develop branch do not
-exist yet.
+Deferred TODOs: none in the constitution. Repository follow-ups: scripts/publish.sh,
+scripts/promote.sh, the CI workflows, DESIGN.md, STITCH-PROMPTS.md and the design:lint and
+tokens:build npm scripts do not exist yet; the main and develop branches already exist.
 -->
 
 # sspc-web Constitution
@@ -219,20 +219,27 @@ their work is safe on the server.
 - Feature branches start from an up-to-date `develop` and are squash-merged into `develop` through
   a pull request.
 - Only `release/X.Y.Z` (cut from `develop`) and `hotfix/X.Y.Z` (cut from `main`) branches are
-  merged into `main`, always with a merge commit, and the release pipeline then opens a pull
-  request that merges `main` back into `develop` with a merge commit.
-- Nobody pushes directly to `develop` or `main`, and nobody creates version tags by hand.
-- Versions follow SemVer 2.0.0; each one is an immutable git tag `vVERSION` and an immutable image
-  in the Magalu Cloud Container Registry, never overwritten and never tagged `latest`.
-- Every push to an open release or hotfix pull request publishes `X.Y.Z-rc.N` to staging; merging
-  it promotes the last release candidate's image to `X.Y.Z` without rebuilding, and only `X.Y.Z`
-  versions reach production.
-- Test versions `X.Y.Z-<identifier>.N` go to staging only, created on demand with the release CLI
-  from any pushed branch other than `main`, release or hotfix branches; when that branch has an
-  open pull request, the version is linked to it.
-- A version is published only when every CI gate passes.
-- Deploys reference images by digest, a rollback redeploys a previous version, and pipelines that
-  deploy to staging can never deploy to production.
+  merged into `main`, always with a merge commit, and after each release or hotfix `main` comes
+  back into `develop` through a `backmerge/vX.Y.Z` pull request, also with a merge commit.
+- Nobody pushes directly to `develop` or `main`.
+- CI runs every quality gate on each push to a branch with an open pull request into `develop` or
+  `main` and after each merge into them; it never publishes or deploys and holds no secrets.
+- Versions follow SemVer 2.0.0 and are created only by `scripts/publish.sh` and
+  `scripts/promote.sh`, run by hand, which always build and tag the repository's two images,
+  `sspc-web` (the app) and `sspc-site` (the static profile site), together under the same version:
+  - test versions `X.Y.Z-<identifier>.N` from any branch other than `main`, release or hotfix
+    branches, and release candidates `X.Y.Z-rc.N` from release and hotfix branches, both for
+    staging only and only from a clean, pushed commit whose CI has not failed (a release candidate
+    requires a green CI);
+  - after the release or hotfix pull request is merged, `scripts/promote.sh` gives the last release
+    candidate's image the final tag `X.Y.Z` without rebuilding, only if the merged tree equals
+    that candidate's, and creates the signed git tag `vX.Y.Z`; only `X.Y.Z` versions reach
+    production.
+- Images live in the Magalu Cloud Container Registry, and a published version is never overwritten
+  nor tagged `latest`.
+- Deploys happen in Rancher by changing a Deployment's image version: staging and production are
+  separate namespaces of one cluster, each with its own database schema and role, secrets and
+  hostname, and a rollback redeploys a previous version.
 - The bundle reports its version as `APP_VERSION`, injected at build time, and sends it in
   `X-App-Version`; release candidates embed `X.Y.Z+rc.N`, so a promoted image reports a final
   version, and local builds report `0.0.0+dev`.
@@ -282,4 +289,4 @@ users.
 - Every plan and every code review MUST verify compliance with these principles. Deviations MUST be
   justified in writing in the relevant `plan.md`; unjustified deviations block merge.
 
-**Version**: 1.1.0 | **Ratified**: 2026-10-04 | **Last Amended**: 2026-10-12
+**Version**: 2.0.0 | **Ratified**: 2026-10-04 | **Last Amended**: 2026-11-01
