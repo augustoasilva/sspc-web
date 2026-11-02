@@ -11,7 +11,7 @@
 | `lang` | `pt-BR` |
 | `start_url` / `scope` / `id` | `/` (the app is served from the origin root) |
 | `display` | `standalone` |
-| `background_color` | `#FFF9F3` (`DESIGN.md` surface) |
+| `background_color` | `#FEF7F0`, the colour of the icon artwork (its splash matches the icon; the DESIGN.md surface `#FFF9F3` is used for `theme_color`) |
 | `theme_color` | `#FFF9F3`; the dark value comes from the two `theme-color` meta tags in `index.html` |
 | `icons` | separate entries, never `"maskable any"` combined: 192 and 512 with `purpose: any`; 192 and 512 with `purpose: maskable` (art inside the 80 % safe zone). Built from one owner-supplied 1024 px master; the scaffold's icons are placeholders |
 

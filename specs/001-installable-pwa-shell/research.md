@@ -114,6 +114,19 @@ Bricolage Grotesque, variable WOFF2, Latin subset (includes Portuguese diacritic
 | `location_on` | `map-pin` | About footer |
 | `check`, `add`, `delete` | `check`, `plus`, `trash-2` | button variants, FAB, destructive |
 
+### R-11a App icon set (T051)
+
+Master: `design/brand/app-icon-1024.png` (1024 × 1024 PNG, opaque; resized from the owner's 1254 px file with Lanczos). Generated once with `sharp` from a scratch install, not a project dependency (no new dependency, per T051). Outputs in `public/icons/` and `public/favicon.ico`:
+
+| File | Size | Notes |
+|------|------|-------|
+| `icon-192-any.png`, `icon-512-any.png` | 192, 512 | full artwork, flattened on the master's background |
+| `icon-192-maskable.png`, `icon-512-maskable.png` | 192, 512 | artwork scaled to 78 % and centred on the background; the art stays inside the 80 % safe zone (the lowest corner of the green base sits at about 49 % of the width from the centre; the zone radius is 40 %) |
+| `apple-touch-icon-180.png` | 180 | opaque (iOS shows no transparency) |
+| `favicon.ico` | 16, 32, 48 | PNG-compressed entries, built by hand (sharp cannot write ICO) |
+
+Background: the per-channel median of the master's outer 40 px border, `#FEF7F0`. The artwork's background is not one flat colour (it varies between about `#FDF6F0` and `#FFF7F0`), so a single corner pixel would be a poor match. This is the artwork's own colour, so the padding and the touch icon blend with the art; the manifest's `background_color` uses the same value, `#FEF7F0`. The script was a one-off and is not committed; to regenerate, the steps are: install `sharp@0.34.5` into a scratch directory; read the master's corner pixel; write the eight PNGs and the ICO as above with Lanczos resampling (`kernel: 'lanczos3'`), `compressionLevel: 9`.
+
 ### R-12 `ui` component set (deviation from the input: 7 components, not 2)
 
 The input names `SspcButton` and `SspcBanner`. The spec and Principle V need five more: Principle V says anything missing becomes a `ui` component before a page uses it, and FR-008, FR-012, FR-016, FR-017 and FR-019 need them.
@@ -380,6 +393,8 @@ Vitest 5.0.5 through `@angular/build:unit-test` (jsdom) with `TestbedHarnessEnvi
 ### R-25 Budget (Verified baseline)
 
 `angular.json` currently has 500 kB/1 MB; change to **400 kB warning, 600 kB error** (Principle IX). Baseline of the bare scaffold: **222.37 kB raw** initial JS, 61 kB estimated transfer (`ng build`, 2026-11-01). Router, CDK dialog, seven components and icons must fit in the remaining ~175 kB before the warning: lazy routes, `@defer` for the dialog, one-by-one icon imports.
+
+**Measured after Phase 4 (`npm run build`, 2026-11-02)**: initial **264.54 kB raw**, 68.65 kB estimated transfer (`main` 131.25 kB, `chunk` 125.96 kB, `styles` 7.33 kB); the two lazy routes are 340 B and 338 B. Below the 400 kB warning; no lever applied (T054).
 
 ### R-26 Security and privacy requirements (SEC-001 to SEC-012) mapped to the design
 
