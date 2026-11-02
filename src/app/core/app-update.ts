@@ -2,7 +2,7 @@
 // FR-013, SC-003 to SC-005). A newer version is downloaded in the background; the user applies it
 // with a tap. A dialog appears only when a text field holds unsaved text. Activation needs no
 // network: it switches to the version already in the cache.
-import { Injectable, InjectionToken, inject, signal } from '@angular/core';
+import { DestroyRef, Injectable, InjectionToken, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SwUpdate } from '@angular/service-worker';
 import { fromEvent, filter } from 'rxjs';
@@ -16,8 +16,10 @@ export const RELOAD_PAGE = new InjectionToken<() => void>('RELOAD_PAGE', {
   factory: () => () => document.location.reload(),
 });
 
-// Minimum time between two checks for a new version (contract: at most once per 30 s).
-export const CHECK_INTERVAL_MS = 30_000;
+// Minimum time between two checks for a new version. It is the SC-004 budget: a trigger that falls
+// inside the window is not dropped, it runs a check at the end of the window, so the check starts at
+// most 5 s after the trigger (contract: notice visible within 5 s of the trigger).
+export const CHECK_INTERVAL_MS = 5_000;
 
 @Injectable({ providedIn: 'root' })
 export class AppUpdate {
@@ -26,10 +28,14 @@ export class AppUpdate {
   private readonly swUpdate = inject(SwUpdate);
   private readonly unsaved = inject(UnsavedWork);
   private readonly reload = inject(RELOAD_PAGE);
+  private readonly destroyRef = inject(DestroyRef);
   private lastCheck: number | undefined;
+  private pendingCheck: ReturnType<typeof setTimeout> | undefined;
 
   constructor() {
-    // In development, and on a non-secure origin, the worker is disabled and the state stays idle.
+    this.destroyRef.onDestroy(() => clearTimeout(this.pendingCheck));
+
+  // In development, and on a non-secure origin, the worker is disabled and the state stays idle.
     if (!this.swUpdate.isEnabled) return;
 
     this.swUpdate.versionUpdates.pipe(takeUntilDestroyed()).subscribe((event) => {
@@ -77,10 +83,24 @@ export class AppUpdate {
     );
   }
 
+  // A trigger inside the window is deferred to the end of the window; further triggers inside the
+  // same window share that one pending check.
   private check(): void {
+    if (this.pendingCheck !== undefined) return;
     const now = Date.now();
-    if (this.lastCheck !== undefined && now - this.lastCheck < CHECK_INTERVAL_MS) return;
-    this.lastCheck = now;
+    const wait = this.lastCheck === undefined ? 0 : this.lastCheck + CHECK_INTERVAL_MS - now;
+    if (wait <= 0) {
+      this.runCheck();
+      return;
+    }
+    this.pendingCheck = setTimeout(() => {
+      this.pendingCheck = undefined;
+      this.runCheck();
+    }, wait);
+  }
+
+  private runCheck(): void {
+    this.lastCheck = Date.now();
     this.swUpdate.checkForUpdate().catch(() => undefined);
   }
 }

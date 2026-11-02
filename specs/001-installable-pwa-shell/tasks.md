@@ -527,3 +527,15 @@ Every functional requirement, security requirement and measurable outcome of [sp
 - Nothing here commits, pushes or publishes; the optional git hooks are the owner's to run.
 - Tasks that need the iPhone or the sibling stack are marked OI-6 and **(check)** where a sibling command may have moved.
 - Stop at any checkpoint to validate a story on its own.
+
+## Phase 13: Convergence
+
+- [X] T141 Ensure update checks on opening, foregrounding and reconnecting detect a newly deployed version within five seconds even when triggers occur within the current 30-second throttle; add behavioral coverage for closely spaced triggers in `src/app/core/app-update.ts` and its tests per FR-009 and SC-004 (contradicts).
+  - Decision (2026-11-02): the throttle is now the 5 s SC-004 window (was 30 s, which dropped triggers inside it). A trigger inside the window runs one deferred check at its end, so the check starts within 5 s of the trigger. Covered by `src/app/core/app-update.spec.ts` (closely spaced triggers, deferred check, merged triggers, immediate check after 5 s). Contract, data model and research updated to 5 s. The device timing is measured in T144.
+- [X] T142 Record frame counts from 60 fps iPhone screen recordings for each of five online and five offline launches in `specs/001-installable-pwa-shell/validation.md`, measured from the registered tap to the first usable screen per FR-003 and SC-001 (partial).
+  - Decision (2026-11-02): all ten launches recorded by the owner. Online 28, 28, 27, 29, 27; offline 27, 26, 29, 29, 28 frames, all within the 60-frame limit. Recorded in `validation.md` (Phase 13 timing).
+- [X] T143 Verify and record the ten-second first-load cold launch and About-first offline scenario with the current shell assets on the installed iPhone app in `specs/001-installable-pwa-shell/validation.md` per FR-005 and US2/AC7 (partial).
+  - Decision (2026-11-02): owner reported the cold launch and About-first offline run in under 0.5 s on the installed iPhone app; recorded in `validation.md` (Phase 13 timing).
+- [X] T144 Perform and record ten update-notice timing trials covering opening, foregrounding and reconnection on the installed iPhone app in `specs/001-installable-pwa-shell/validation.md` per SC-004 (partial).
+  - Decision (2026-11-02): owner reported 10 of 10 update-notice trials under 1 s (average about 0.8 s), within SC-004 (5 s); recorded in `validation.md`. The split by trigger was not reported.
+- [ ] T145 Complete the CI timing verification and deliberate failure trials for each specified check, and record the results in the pull request per SC-008 and T122/T123 (partial).

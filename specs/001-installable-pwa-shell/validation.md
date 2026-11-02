@@ -36,6 +36,14 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 | Início and Sobre against Stitch, light and dark (T095) | pass (owner reported) | no differences reported |
 | Connection value on About changes within 2 s (T096) | pass (owner reported) | 1 second (owner reported; direction not split) |
 
+## Phase 13 timing (T142 to T144)
+
+| Check | Result | Notes |
+|-------|--------|-------|
+| T142. Frame count of five online and five offline launches, 60 fps recordings (FR-003, SC-001) | pass (owner reported): online 28, 28, 27, 29, 27; offline 27, 26, 29, 29, 28 | All ten launches are within the 60-frame limit, and each is 30 frames or less |
+| T143. Cold launch after the first load, and About first offline (FR-005, US2/AC7) | pass (owner reported): under 0.5 s | Measured on the installed iPhone app with the current shell assets. The About-first offline content was already passed in D2 step 5 |
+| T144. Ten update-notice trials, opening, foregrounding and reconnection (SC-004) | pass (owner reported): 10 of 10 under 1 s, average about 0.8 s | Within the 5-second limit in every trial. The split between opening, foregrounding and reconnection was not reported |
+
 ## D3. Offline start (Story 2, FR-037)
 
 | Check | Result |

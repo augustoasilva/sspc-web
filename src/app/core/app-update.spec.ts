@@ -1,12 +1,12 @@
 // Table-driven spec for AppUpdate (data-model §UpdateState, contracts/pwa-and-update.md §Update
 // contract, SC-003 to SC-005). SwUpdate is replaced by FakeSwUpdate, the reload by a spy, and time
-// by vi.useFakeTimers so the 30 s check throttle is exercised.
+// by vi.useFakeTimers so the 5 s check window (SC-004) is exercised.
 import { WritableSignal, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { SwUpdate } from '@angular/service-worker';
 import { FakeSwUpdate } from '@sspc/testing/fakes';
 import { UnsavedWork } from './unsaved-work';
-import { AppUpdate, RELOAD_PAGE, UpdateState } from './app-update';
+import { AppUpdate, CHECK_INTERVAL_MS, RELOAD_PAGE, UpdateState } from './app-update';
 
 type Action = 'tap' | 'confirm' | 'dismiss' | 'versionReady' | 'installFailed' | 'unrecoverable';
 
@@ -212,32 +212,64 @@ describe('AppUpdate', () => {
     expect(s.update.state()).toBe(state);
   });
 
-  it('given a check ran less than 30 s ago, when the app becomes visible, then no new check runs', () => {
+  it('given a check ran 1 s ago, when the app becomes visible, then the check waits for the window and runs within 5 s of the trigger', () => {
     // given
     const s = setup();
     Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'visible' });
-    vi.advanceTimersByTime(10_000);
+    vi.advanceTimersByTime(1_000);
     // when
     document.dispatchEvent(new Event('visibilitychange'));
     // then
     expect(s.swUpdate.checkCount).toBe(1);
+    vi.advanceTimersByTime(3_999);
+    expect(s.swUpdate.checkCount).toBe(1);
+    vi.advanceTimersByTime(1);
+    expect(s.swUpdate.checkCount).toBe(2);
   });
 
-  it('given the last check was 30 s or more ago, when the app becomes visible, then a check runs', () => {
+  it('given a check ran 1 s ago and a newer version is deployed, when the app becomes visible, then the notice appears within 5 s of the trigger', () => {
     // given
     const s = setup();
     Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'visible' });
-    vi.advanceTimersByTime(30_000);
+    vi.advanceTimersByTime(1_000);
+    // when
+    document.dispatchEvent(new Event('visibilitychange'));
+    vi.advanceTimersByTime(4_000);
+    s.swUpdate.emitVersionReady();
+    // then
+    expect(s.update.state()).toBe('ready');
+  });
+
+  it('given several triggers inside the window, when they arrive, then one deferred check runs', () => {
+    // given
+    const s = setup();
+    Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'visible' });
+    vi.advanceTimersByTime(1_000);
+    // when
+    document.dispatchEvent(new Event('visibilitychange'));
+    vi.advanceTimersByTime(500);
+    window.dispatchEvent(new Event('online'));
+    document.dispatchEvent(new Event('visibilitychange'));
+    vi.advanceTimersByTime(10_000);
+    // then
+    expect(s.swUpdate.checkCount).toBe(2);
+  });
+
+  it('given the last check was 5 s or more ago, when the app becomes visible, then a check runs at once', () => {
+    // given
+    const s = setup();
+    Object.defineProperty(document, 'visibilityState', { configurable: true, get: () => 'visible' });
+    vi.advanceTimersByTime(CHECK_INTERVAL_MS);
     // when
     document.dispatchEvent(new Event('visibilitychange'));
     // then
     expect(s.swUpdate.checkCount).toBe(2);
   });
 
-  it('given the last check was 30 s or more ago, when the device comes online, then a check runs', () => {
+  it('given the last check was 5 s or more ago, when the device comes online, then a check runs at once', () => {
     // given
     const s = setup();
-    vi.advanceTimersByTime(31_000);
+    vi.advanceTimersByTime(CHECK_INTERVAL_MS + 1_000);
     // when
     window.dispatchEvent(new Event('online'));
     // then

@@ -51,8 +51,8 @@ No `dataGroups`, now or when later features add API calls (SEC-002): the worker 
 | Trigger | Action | Result |
 |---------|--------|--------|
 | application start (after the service worker is ready) | `checkForUpdate()` | may emit `VERSION_DETECTED` then `VERSION_READY` |
-| `visibilitychange` → visible | `checkForUpdate()` if the last check was ≥ 30 s ago | same |
-| window `online` | `checkForUpdate()` if the last check was ≥ 30 s ago | same |
+| `visibilitychange` → visible | `checkForUpdate()`; if the last check was < 5 s ago, at the end of that 5 s window (one deferred check shared by all triggers in the window) | same |
+| window `online` | `checkForUpdate()`, under the same 5 s rule as above | same |
 | `VERSION_READY` | state → `ready` | banner shown |
 | `VERSION_INSTALLATION_FAILED` | log only; no notice (nothing to apply) | stays `idle` |
 | tap "Atualizar", no unsaved work | `activateUpdate()` then `document.location.reload()` | new version |
