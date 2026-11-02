@@ -3,20 +3,6 @@
 # 30 days of approval; renew only by a new decision, and remove each entry when the pinned Caddy image
 # is rebuilt with a patched Go toolchain (SEC-006).
 exceptions:
-  - id: CVE-2026-116587
-    scope: image
-    target: usr/bin/caddy in caddy:2.11.7 (go-jose v3 and v4)
-    rationale: >-
-      The Caddy 2.11.7 binary is built with go1.26.8 and bundles go-jose; the fixed go-jose v4.1.6 is not in
-      the pinned release. No newer Caddy release exists on Docker Hub (2.11.7 is the newest tag).
-    compensating_controls: >-
-      The site and app serve static files only, and the configuration uses no JWT or JOSE directive. The
-      Caddy admin API is off (admin off) and the server speaks HTTP/1.1 only (protocols h1). The image runs read-only,
-      as UID 65532, with all capabilities dropped and no-new-privileges. Its only exposure is the home LAN
-      while the test stack runs.
-    approver: Augusto Silva (owner)
-    approved: 2026-11-02
-    expires: 2026-12-02
   - id: CVE-2026-78669
     scope: image
     target: usr/bin/caddy in caddy:2.11.7 (golang.org/x/net and Go net/http HTTP/2)
