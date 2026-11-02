@@ -3,6 +3,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@sspc/core/*": ["src/app/core/*"],
+      "@sspc/ui/*": ["src/app/ui/*"],
+      "@sspc/testing/*": ["src/testing/*"]
+    },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,

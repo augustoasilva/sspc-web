@@ -3,10 +3,20 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "design:lint": "design.md lint DESIGN.md",
+    "tokens:build": "node tools/build-tokens.mjs",
+    "tokens:check": "npm run tokens:build && git diff --exit-code -- src/app/ui/tokens site/assets/css/tokens.css",
+    "prebuild": "npm run design:lint && npm run tokens:build",
+    "pretest": "npm run design:lint && npm run tokens:build",
+    "lint": "eslint . && stylelint \"src/app/ui/**/*.scss\" --allow-empty-input",
     "build": "ng build",
+    "test": "ng test",
+    "test:tools": "vitest run --config vitest.tools.config.ts",
+    "policy": "node scripts/policy/workflow.mjs && node scripts/policy/dockerfiles.mjs && node scripts/policy/agent-settings.mjs && node scripts/policy/caddyfile.mjs && node scripts/policy/image-metadata.mjs && node scripts/policy/validation-record.mjs && node scripts/policy/exceptions.mjs",
+    "audit": "node scripts/policy/npm-audit.mjs",
+    "start": "ng serve",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test:watch": "ng test"
   },
   "private": true,
   "packageManager": "npm@11.19.0",

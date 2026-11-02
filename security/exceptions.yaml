@@ -1,0 +1,2 @@
+# ExceptionRecord fields: id, scope, target, rationale, compensating_controls, approver, approved, expires
+exceptions: []
