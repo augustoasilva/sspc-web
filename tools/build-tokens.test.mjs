@@ -51,6 +51,15 @@ describe('build-tokens', () => {
       },
     },
     {
+      name: 'given a valid design, when built, then tokens.css has theme selectors for a scoped wrapper (light and dark, colors only)',
+      input: 'valid-design.md',
+      check: ({ css }) => {
+        expect(css).toMatch(/\[data-theme="light"\]\s*\{[^}]*--sspc-color-primary:\s*#414B3B/);
+        expect(css).toMatch(/\[data-theme="dark"\]\s*\{[^}]*--sspc-color-primary:\s*#8CA87C/);
+        expect(css).not.toMatch(/\[data-theme="(light|dark)"\]\s*\{[^}]*--sspc-spacing/);
+      },
+    },
+    {
       name: 'given a typography scale, when built, then a .type-<name> class carries family, weight and fontVariation',
       input: 'valid-design.md',
       check: ({ css }) => {

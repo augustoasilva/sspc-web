@@ -1,0 +1,80 @@
+<header class="sspc-catalog__intro">
+  <p class="type-label-sm">Catálogo do Desenvolvedor · v1.0.0</p>
+  <h1 class="type-headline-md">Design system</h1>
+  <p class="type-body-md">Componentes compartilhados, em claro e em escuro. Só existe em desenvolvimento.</p>
+</header>
+
+<label class="sspc-catalog__field type-label-md">
+  Campo de teste (o texto digitado fica no formulário)
+  <input type="text" autocomplete="off" [formControl]="field" />
+</label>
+
+<details class="sspc-catalog__section" data-section="button" open>
+  <summary><span class="type-title-md">Botões</span><span class="sspc-catalog__count type-label-sm">16 estados</span></summary>
+  @for (theme of themes; track theme) {
+    <div class="sspc-catalog__theme" [attr.data-theme]="theme" [style.color-scheme]="theme">
+      <p class="type-label-sm">{{ theme === 'light' ? 'Claro' : 'Escuro' }}</p>
+      <sspc-button-section />
+    </div>
+  }
+</details>
+
+<details class="sspc-catalog__section" data-section="banner" open>
+  <summary><span class="type-title-md">Banner</span><span class="sspc-catalog__count type-label-sm">5 estados</span></summary>
+  @for (theme of themes; track theme) {
+    <div class="sspc-catalog__theme" [attr.data-theme]="theme" [style.color-scheme]="theme">
+      <p class="type-label-sm">{{ theme === 'light' ? 'Claro' : 'Escuro' }}</p>
+      <sspc-banner-section />
+    </div>
+  }
+</details>
+
+<details class="sspc-catalog__section" data-section="dialog" open>
+  <summary><span class="type-title-md">Diálogo</span><span class="sspc-catalog__count type-label-sm">2 estados</span></summary>
+  @for (theme of themes; track theme) {
+    <div class="sspc-catalog__theme" [attr.data-theme]="theme" [style.color-scheme]="theme">
+      <p class="type-label-sm">{{ theme === 'light' ? 'Claro' : 'Escuro' }}</p>
+      <sspc-dialog-section />
+    </div>
+  }
+</details>
+
+<details class="sspc-catalog__section" data-section="status-chip" open>
+  <summary><span class="type-title-md">Chip de estado</span><span class="sspc-catalog__count type-label-sm">6 chips</span></summary>
+  @for (theme of themes; track theme) {
+    <div class="sspc-catalog__theme" [attr.data-theme]="theme" [style.color-scheme]="theme">
+      <p class="type-label-sm">{{ theme === 'light' ? 'Claro' : 'Escuro' }}</p>
+      <sspc-status-chip-section />
+    </div>
+  }
+</details>
+
+<details class="sspc-catalog__section" data-section="list-row" open>
+  <summary><span class="type-title-md">Linha de lista</span><span class="sspc-catalog__count type-label-sm">2 exemplos</span></summary>
+  @for (theme of themes; track theme) {
+    <div class="sspc-catalog__theme" [attr.data-theme]="theme" [style.color-scheme]="theme">
+      <p class="type-label-sm">{{ theme === 'light' ? 'Claro' : 'Escuro' }}</p>
+      <sspc-list-row-section />
+    </div>
+  }
+</details>
+
+<details class="sspc-catalog__section" data-section="app-bar" open>
+  <summary><span class="type-title-md">Barra do aplicativo</span><span class="sspc-catalog__count type-label-sm">3 variantes</span></summary>
+  @for (theme of themes; track theme) {
+    <div class="sspc-catalog__theme" [attr.data-theme]="theme" [style.color-scheme]="theme">
+      <p class="type-label-sm">{{ theme === 'light' ? 'Claro' : 'Escuro' }}</p>
+      <sspc-app-bar-section />
+    </div>
+  }
+</details>
+
+<details class="sspc-catalog__section" data-section="tab-bar" open>
+  <summary><span class="type-title-md">Barra de abas</span><span class="sspc-catalog__count type-label-sm">2 estados</span></summary>
+  @for (theme of themes; track theme) {
+    <div class="sspc-catalog__theme" [attr.data-theme]="theme" [style.color-scheme]="theme">
+      <p class="type-label-sm">{{ theme === 'light' ? 'Claro' : 'Escuro' }}</p>
+      <sspc-tab-bar-section />
+    </div>
+  }
+</details>

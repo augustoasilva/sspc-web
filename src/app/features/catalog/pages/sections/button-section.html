@@ -1,0 +1,31 @@
+@for (variant of variants; track variant) {
+  <div class="sspc-catalog__row">
+    <p class="type-label-sm">{{ variant }}</p>
+    <div class="sspc-catalog__cluster">
+      @for (state of states; track state) {
+        @switch (state) {
+          @case ('default') {
+            <button sspc-button [variant]="variant" [attr.data-variant]="variant" [attr.data-state]="state">Salvar</button>
+          }
+          @case ('pressed') {
+            <button sspc-button [variant]="variant" [pressed]="true" [attr.data-variant]="variant" [attr.data-state]="state">Terminei minha nota</button>
+          }
+          @case ('loading') {
+            <button sspc-button [variant]="variant" [loading]="true" [attr.data-variant]="variant" [attr.data-state]="state">Salvando...</button>
+          }
+          @case ('disabled') {
+            <button sspc-button [variant]="variant" [disabled]="true" [attr.data-variant]="variant" [attr.data-state]="state">Cancelar</button>
+          }
+        }
+      }
+    </div>
+  </div>
+}
+
+<div class="sspc-catalog__row">
+  <p class="type-label-sm">formas</p>
+  <div class="sspc-catalog__cluster">
+    <button sspc-button shape="fab" variant="primary" aria-label="Nova visita"><svg lucidePlus icon aria-hidden="true"></svg></button>
+    <button sspc-button shape="fab-extended" variant="primary"><svg lucidePlus icon aria-hidden="true"></svg>Nova visita</button>
+  </div>
+</div>

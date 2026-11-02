@@ -1,0 +1,14 @@
+<div class="sspc-catalog__row">
+  <p class="type-label-sm">fechado e aberto</p>
+  <div class="sspc-catalog__cluster">
+    <button sspc-button variant="secondary" (click)="open.set(true)">Abrir diálogo</button>
+  </div>
+</div>
+
+<sspc-dialog
+  [(open)]="open"
+  heading="Atualizar agora?"
+  description="O aplicativo será reiniciado e o texto ainda não salvo será perdido."
+  primaryLabel="Atualizar agora"
+  secondaryLabel="Agora não"
+/>

@@ -127,6 +127,11 @@ function cssLines(tree, { includeDark }) {
   ];
   if (includeDark) {
     blocks.push(`@media (prefers-color-scheme: dark) {\n  :root {\n${darkVars.join('\n')}\n  }\n}`);
+    // A scoped wrapper (the catalogue's opposite-theme sections) sets data-theme and gets the
+    // colors of that theme only. Spacing, shape and type stay on :root.
+    const lightColorVars = rootVars.filter((line) => line.includes('--sspc-color-'));
+    blocks.push(`[data-theme="light"] {\n${lightColorVars.join('\n')}\n}`);
+    blocks.push(`[data-theme="dark"] {\n${darkVars.map((line) => line.slice(2)).join('\n')}\n}`);
   }
   return [...blocks, ...typeClasses].join('\n\n') + '\n';
 }

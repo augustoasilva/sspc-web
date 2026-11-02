@@ -20,4 +20,11 @@ export function buildRoutes(catalogRoute?: Route): Routes {
   ];
 }
 
-export const routes: Routes = buildRoutes();
+// The catalogue exists only in builds with SSPC_CATALOG (development and test builds). The
+// import sits in the branch on the build-time constant, so a production build drops the
+// lazy chunk with it (research R-15, proved by the build assertion in T118).
+export const routes: Routes = buildRoutes(
+  SSPC_CATALOG
+    ? { path: '_ds', loadChildren: () => import('./features/catalog/catalog.routes').then((m) => m.CATALOG_ROUTES) }
+    : undefined,
+);
