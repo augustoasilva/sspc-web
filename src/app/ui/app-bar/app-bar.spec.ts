@@ -45,6 +45,19 @@ describe('SspcAppBar', () => {
     expect(await bar.overline()).toBe(overline);
   });
 
+  it.each([
+    { name: 'given a heading and no overline, then the heading uses the 22/650 title style', init: { heading: 'Início' }, style: 'type-title-lg' },
+    { name: 'given a heading and showBack, then the heading uses the same 22/650 title style', init: { heading: 'Sobre', showBack: true }, style: 'type-title-lg' },
+    { name: 'given a heading and an overline, then the heading uses the 18/600 title style', init: { heading: 'Início', overline: 'SSPC STUDIO' }, style: 'type-title-md' },
+  ])('$name', async ({ init, style }) => {
+    // given / when
+    const { fixture } = await setup(init);
+    const heading = (fixture.nativeElement as HTMLElement).querySelector('h1') as HTMLElement;
+    // then
+    expect(heading.classList.contains(style)).toBe(true);
+    expect(heading.classList.contains(style === 'type-title-lg' ? 'type-title-md' : 'type-title-lg')).toBe(false);
+  });
+
   it('given showBack, when the back control is clicked, then back emits and the control has the caller label', async () => {
     // given
     const { host, bar } = await setup({ heading: 'Sobre', showBack: true });

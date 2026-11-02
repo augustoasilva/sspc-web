@@ -7,6 +7,6 @@
   @if (overline()) {
     <p class="sspc-app-bar__overline type-label-sm">{{ overline() }}</p>
   }
-  <h1 class="sspc-app-bar__heading" [class.type-title-lg]="showBack()" [class.type-title-md]="!showBack()">{{ heading() }}</h1>
+  <h1 class="sspc-app-bar__heading" [class.type-title-lg]="!overline()" [class.type-title-md]="!!overline()">{{ heading() }}</h1>
 </div>
 <div class="sspc-app-bar__end"><ng-content select="[end]" /></div>

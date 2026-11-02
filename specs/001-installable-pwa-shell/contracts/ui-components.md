@@ -60,7 +60,7 @@ Input `label` (string); slots `[icon]` (20 px) and default (value, right-aligned
 
 | Input | Type | Notes |
 |-------|------|-------|
-| `heading` | string | 22/650 on back-navigation screens, 18/600 with an overline |
+| `heading` | string | 22/650 without an overline (top-level and back-navigation screens alike), 18/600 with an overline |
 | `overline` | string \| undefined | e.g. "SSPC STUDIO" (12/600, uppercase, tracked) |
 | `showBack` | boolean | back button 48×48 with an accessible name from `backLabel` |
 | `backLabel` | string | caller-supplied ("Voltar") |

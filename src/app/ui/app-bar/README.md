@@ -7,7 +7,7 @@ Selector: `sspc-app-bar`, role `banner`.
 **Slots**: `[end]` (the connection chip).
 **Outputs**: `back`.
 
-**Layout**: 64 px high plus the top safe area; tonal `surface`; no blur and no shadow (depth comes from tonal layers). With an overline the heading is 18/600; on back-navigation screens it is 22/650. The back control is 48×48 with an accessible name.
+**Layout**: 64 px high plus the top safe area; tonal `surface`; no blur and no shadow (depth comes from tonal layers). With an overline the heading is 18/600; without one (top-level and back-navigation screens alike) it is 22/650, so Início and Sobre match. The back control is 48×48 with an accessible name.
 
 **Copy**: none; the caller supplies the heading, overline and back label.
 
