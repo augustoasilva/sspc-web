@@ -48,7 +48,7 @@ Seed cases: given open, when Escape, then `secondary` emits and focus is restore
 | Input | Type | Default | Notes |
 |-------|------|---------|-------|
 | `tone` | `positive` \| `neutral` \| `attention` | `neutral` | positive = sage container, neutral = surface-container-high, attention = gold container |
-| `dot` | boolean | false | 8 px status dot (pulses; still under reduced motion) |
+| `dot` | boolean | false | 8 px status dot (pulses; the pulse stops under reduced motion, clarified 2026-11-02 in spec.md) |
 
 Slots: `[icon]`, default (label). Used as the header connection chip ("Conectado" positive with dot and `wifi`; "Sem conexão" neutral with `wifi-off`) and the About chips ("Online"/"Offline", storage state). `role="status"` when used for live state. Label 12/600, padding 8×4 (research G11), pill.
 
