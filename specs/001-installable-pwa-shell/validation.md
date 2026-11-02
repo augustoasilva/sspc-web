@@ -20,6 +20,8 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 | App address does not serve the app with the web option off (record the code) | pass (measured on the computer: 502) |
 | Counter reads one more after one known request (difference 1) | pass (measured on the computer: before 0, after 1) |
 | Insecure origin (T072), iPhone and desktop | pass (owner reported: the secure-connection warning is shown on both; the desktop browser first timed out on the Windows side, which is not an app result) |
+| Insecure origin on the app image (quickstart B): the notice shows and no service worker is registered | pass (owner reported; same check as the row above, 2026-11-02) |
+| Quickstart A9 (catalogue at `/_ds`) and A13 (desktop tab: home, About, connection chip, system theme, no install prompt) | pass (owner reported, 2026-11-02) |
 
 ## D2. Install and first launch (Stories 1, 4, 5)
 
