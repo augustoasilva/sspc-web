@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { UnsavedWork } from '@sspc/core/unsaved-work';
+import { map } from 'rxjs';
 import { AppBarSection } from './sections/app-bar-section';
 import { BannerSection } from './sections/banner-section';
 import { ButtonSection } from './sections/button-section';
@@ -29,4 +32,14 @@ import { TabBarSection } from './sections/tab-bar-section';
 export class CatalogPage {
   readonly field = new FormControl<string>('', { nonNullable: true });
   protected readonly themes = ['light', 'dark'] as const;
+
+  // The field holds text the shell has not saved while it is not empty, so an update asks first
+  // (US6, spec A-004).
+  private readonly dirty = toSignal(this.field.valueChanges.pipe(map((value) => value.length > 0)), {
+    initialValue: false,
+  });
+
+  constructor() {
+    inject(UnsavedWork).track(this.dirty);
+  }
 }

@@ -3,6 +3,7 @@
 // production by the build constant (T084, research R-15).
 import { FormControl } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
+import { UnsavedWork } from '@sspc/core/unsaved-work';
 import { CatalogPage } from './catalog';
 
 const SECTIONS = ['button', 'banner', 'dialog', 'status-chip', 'list-row', 'app-bar', 'tab-bar'];
@@ -51,5 +52,17 @@ describe('CatalogPage', () => {
     // then
     expect(wrapper).not.toBeNull();
     expect(wrapper?.style.colorScheme).toBe(wrapper?.dataset['theme']);
+  });
+
+  it.each([
+    { name: 'given the field is empty, then no unsaved text is registered', typed: '', unsaved: false },
+    { name: 'given text is typed in the field, then the shell sees unsaved text (A-004)', typed: 'rascunho', unsaved: true },
+  ])('$name', ({ typed, unsaved }) => {
+    // given
+    const { page } = render();
+    // when
+    page.field.setValue(typed);
+    // then
+    expect(TestBed.inject(UnsavedWork).hasUnsaved()).toBe(unsaved);
   });
 });

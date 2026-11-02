@@ -15,9 +15,34 @@
       @if (!secureContext.secure) {
         <sspc-banner tone="error">{{ secureContext.message }}</sspc-banner>
       }
+      @if (updateBannerShown()) {
+        <sspc-banner
+          tone="info"
+          actionLabel="Atualizar"
+          [busy]="update.state() === 'applying'"
+          (action)="update.tap()"
+        >Nova versão disponível</sspc-banner>
+      }
+      @if (update.state() === 'failed') {
+        <sspc-banner tone="error" actionLabel="Tentar de novo" (action)="update.tap()">Não foi possível atualizar. Tente de novo.</sspc-banner>
+      }
     </div>
     <router-outlet />
   </div>
 </main>
+
+@if (update.state() === 'confirming') {
+  @defer (on immediate) {
+    <sspc-dialog
+      [open]="true"
+      heading="Atualizar agora?"
+      description="A atualização reinicia o app. O texto que você ainda não salvou será perdido."
+      primaryLabel="Atualizar agora"
+      secondaryLabel="Agora não"
+      (primary)="update.confirm()"
+      (secondary)="update.dismiss()"
+    />
+  }
+}
 
 <sspc-tab-bar [items]="tabs" [activeId]="activeId()" ariaLabel="Principal" (itemSelect)="navigate($event)" />

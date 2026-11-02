@@ -5,7 +5,9 @@ import { LucideWifi, LucideWifiOff } from '@lucide/angular';
 import { filter, map } from 'rxjs';
 import { Connectivity } from './core/connectivity';
 import { SecureContext } from './core/secure-context';
+import { AppUpdate } from './core/app-update';
 import { SspcAppBar } from './ui/app-bar/app-bar';
+import { SspcDialog } from './ui/dialog/dialog';
 import { SspcBanner } from './ui/banner/banner';
 import { SspcStatusChip } from './ui/status-chip/status-chip';
 import { SspcTabBar, TabItem } from './ui/tab-bar/tab-bar';
@@ -15,13 +17,14 @@ import { SspcTabBar, TabItem } from './ui/tab-bar/tab-bar';
 // control come from route data.
 @Component({
   selector: 'sspc-root',
-  imports: [RouterOutlet, LucideWifi, LucideWifiOff, SspcAppBar, SspcBanner, SspcStatusChip, SspcTabBar],
+  imports: [RouterOutlet, LucideWifi, LucideWifiOff, SspcAppBar, SspcBanner, SspcDialog, SspcStatusChip, SspcTabBar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
   protected readonly connectivity = inject(Connectivity);
   protected readonly secureContext = inject(SecureContext);
+  protected readonly update = inject(AppUpdate);
   private readonly router = inject(Router);
 
   private readonly url = toSignal(
@@ -34,6 +37,8 @@ export class App {
 
   protected readonly title = computed(() => this.readRouteData('title', 'SSPC Studio'));
   protected readonly showBack = computed(() => this.readRouteData('back', false));
+  // The update banner stays while the dialog is open or the update is applying (US6, T104).
+  protected readonly updateBannerShown = computed(() => ['ready', 'confirming', 'applying'].includes(this.update.state()));
   protected readonly activeId = computed(() => (this.url().startsWith('/sobre') ? 'about' : 'home'));
 
   protected readonly tabs: TabItem[] = [

@@ -1,6 +1,11 @@
 // Table-driven shell spec (T047): connection chip, title and back control per route,
 // and tab navigation through the router.
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { SwUpdate } from '@angular/service-worker';
+import { RELOAD_PAGE } from './core/app-update';
+import { UnsavedWork } from './core/unsaved-work';
+import { FakeSwUpdate } from '@sspc/testing/fakes';
 import { provideLocationMocks } from '@angular/common/testing';
 import { Router, provideRouter } from '@angular/router';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
@@ -22,7 +27,15 @@ const INSECURE_MESSAGE = 'Conexão insegura. Abra o endereço HTTPS confiável p
 async function setup(url: string, online: boolean, secure = true) {
   setOnLine(online);
   setIsSecureContext(secure);
-  TestBed.configureTestingModule({ imports: [App], providers: [provideRouter(routes), provideLocationMocks()] });
+  TestBed.configureTestingModule({
+    imports: [App],
+    providers: [
+      provideRouter(routes),
+      provideLocationMocks(),
+      { provide: SwUpdate, useValue: new FakeSwUpdate() },
+      { provide: RELOAD_PAGE, useValue: vi.fn() },
+    ],
+  });
   const router = TestBed.inject(Router);
   await router.navigateByUrl(url);
   const fixture = TestBed.createComponent(App);
@@ -136,3 +149,129 @@ describe('App shell', () => {
     expect(router.url).toBe('/');
   });
 });
+
+// Update flow in the shell (US6, T099): banner, dialog only with unsaved text, failure banner.
+async function setupUpdate(options: { unsaved?: boolean } = {}) {
+  setOnLine(true);
+  setIsSecureContext(true);
+  const swUpdate = new FakeSwUpdate();
+  const reload = vi.fn();
+  const dirty = signal(options.unsaved ?? false);
+  TestBed.configureTestingModule({
+    imports: [App],
+    providers: [
+      provideRouter(routes),
+      provideLocationMocks(),
+      { provide: SwUpdate, useValue: swUpdate },
+      { provide: RELOAD_PAGE, useValue: reload },
+    ],
+  });
+  TestBed.runInInjectionContext(() => TestBed.inject(UnsavedWork).track(dirty));
+  const fixture = TestBed.createComponent(App);
+  const router = TestBed.inject(Router);
+  const root = fixture.nativeElement as HTMLElement;
+  const flush = async () => {
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+  };
+  await flush();
+  return { fixture, router, root, swUpdate, reload, dirty, flush };
+}
+
+function buttonWithText(root: HTMLElement, text: string): HTMLButtonElement | undefined {
+  return Array.from(root.querySelectorAll('button')).find((b) => b.textContent?.trim() === text);
+}
+
+describe('App update flow', () => {
+  afterEach(() => {
+    Reflect.deleteProperty(navigator, 'onLine');
+    Reflect.deleteProperty(globalThis, 'isSecureContext');
+    vi.unstubAllGlobals();
+  });
+
+  it('given a new version is ready, then the info banner shows Nova versão disponível with one action Atualizar and no close control', async () => {
+    // given
+    const { root, swUpdate, flush } = await setupUpdate();
+    // when
+    swUpdate.emitVersionReady();
+    await flush();
+    // then
+    const banner = root.querySelector('[data-slot="banner"] sspc-banner[data-tone="info"]') as HTMLElement | null;
+    expect(banner?.textContent).toContain('Nova versão disponível');
+    const buttons = banner?.querySelectorAll('button') ?? [];
+    expect(buttons.length).toBe(1);
+    expect(buttons[0].textContent?.trim()).toBe('Atualizar');
+  });
+
+  it('given the banner is shown, when the route changes, then it stays on screen', async () => {
+    // given
+    const { root, router, swUpdate, flush } = await setupUpdate();
+    swUpdate.emitVersionReady();
+    await flush();
+    // when
+    await router.navigateByUrl('/sobre');
+    await flush();
+    // then
+    expect(root.querySelector('[data-slot="banner"] sspc-banner[data-tone="info"]')).not.toBeNull();
+  });
+
+  it.each([
+    {
+      name: 'given no unsaved text, when Atualizar is tapped, then no dialog opens and the page reloads',
+      unsaved: false,
+      dialog: false,
+      reloads: true,
+    },
+    {
+      name: 'given unsaved text, when Atualizar is tapped, then the dialog opens with Atualizar agora and Agora não',
+      unsaved: true,
+      dialog: true,
+      reloads: false,
+    },
+  ])('$name', async ({ unsaved, dialog, reloads }) => {
+    // given
+    const { root, swUpdate, reload, flush } = await setupUpdate({ unsaved });
+    swUpdate.emitVersionReady();
+    await flush();
+    // when
+    buttonWithText(root, 'Atualizar')?.click();
+    await flush();
+    // then
+    expect(root.querySelector('[role="alertdialog"]') !== null).toBe(dialog);
+    expect(reload.mock.calls.length > 0).toBe(reloads);
+  });
+
+  it('given the dialog is open, when Agora não is chosen, then the dialog closes, the banner stays and the text is kept', async () => {
+    // given
+    const { root, swUpdate, dirty, flush } = await setupUpdate({ unsaved: true });
+    swUpdate.emitVersionReady();
+    await flush();
+    buttonWithText(root, 'Atualizar')?.click();
+    await flush();
+    // when
+    buttonWithText(root, 'Agora não')?.click();
+    await flush();
+    // then
+    expect(root.querySelector('[role="alertdialog"]')).toBeNull();
+    expect(root.querySelector('[data-slot="banner"] sspc-banner[data-tone="info"]')).not.toBeNull();
+    expect(dirty()).toBe(true);
+  });
+
+  it('given the update fails, then the error banner shows the failure copy with Tentar de novo', async () => {
+    // given
+    const { root, swUpdate, flush } = await setupUpdate();
+    swUpdate.activateResult = 'reject';
+    swUpdate.emitVersionReady();
+    await flush();
+    // when
+    buttonWithText(root, 'Atualizar')?.click();
+    await flush();
+    await flush();
+    // then
+    const banner = root.querySelector('[data-slot="banner"] sspc-banner[data-tone="error"]') as HTMLElement | null;
+    expect(banner?.textContent).toContain('Não foi possível atualizar. Tente de novo.');
+    expect(buttonWithText(root, 'Tentar de novo')).toBeDefined();
+  });
+});
+

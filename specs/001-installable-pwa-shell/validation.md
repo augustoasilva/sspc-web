@@ -47,15 +47,15 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 
 | Step | Result | Notes |
 |------|--------|-------|
-| 3. Banner within 5 s, no close control (seconds) | not run | |
-| 5. "Agora não" leaves the typed text, cursor, focus and banner | not run | |
-| 6. "Atualizar agora" switches the version; typed text gone | not run | |
-| 7. No unsaved text: the switch is immediate, no dialog | not run | |
-| 8. Force-quit, relaunch: new version, banner gone | not run | |
-| 9. Offline tap applies the downloaded update | not run | |
-| 10. Several versions: the newest is offered, the skipped one never | not run | |
-| 11. Rollback is offered as an update | not run | |
-| 12. SC-003 trials (passes out of 20; all 20 required) | not run | |
+| 3. Banner within 5 s, no close control (seconds) | pass (owner reported) | banner about 0.5 s after the page was open; no close control. Test build `fifth` (0.0.4+dev) deployed while the installed app was open on the previous version (a fresh launch shows the newest version directly, no banner) |
+| 5. "Agora não" leaves the typed text, cursor, focus and banner | pass (owner reported) | |
+| 6. "Atualizar agora" switches the version; typed text gone | pass (owner reported) | |
+| 7. No unsaved text: the switch is immediate, no dialog | pass (owner reported) | |
+| 8. Force-quit, relaunch: new version, banner gone | pass (owner reported) | |
+| 9. Offline tap applies the downloaded update | pass (owner reported) | |
+| 10. Several versions: the newest is offered, the skipped one never | pass (owner reported) | |
+| 11. Rollback is offered as an update | pass (owner reported) | |
+| 12. SC-003 trials (passes out of 20; all 20 required) | pass (owner reported): 20 of 20 | 20 banner appearances while typing the catalogue field; the owner reported the trials as correct |
 
 ## Cleanup (SEC-010)
 

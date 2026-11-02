@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { LucideBookOpen, LucideMapPin, LucideShield, LucideShieldCheck, LucideSparkles, LucideStar, LucideUtensils, LucideWifi, LucideWifiOff } from '@lucide/angular';
+import { LucideBookOpen, LucideMapPin, LucideShield, LucideShieldCheck, LucideSparkles, LucideStar, LucideUtensils } from '@lucide/angular';
 import { AppVersion } from '@sspc/core/app-version';
 import { Connectivity } from '@sspc/core/connectivity';
 import { StoragePersistence } from '@sspc/core/storage-persistence';
@@ -18,8 +18,6 @@ import { SspcStatusChip } from '@sspc/ui/status-chip/status-chip';
     LucideSparkles,
     LucideStar,
     LucideUtensils,
-    LucideWifi,
-    LucideWifiOff,
     SspcListRow,
     SspcStatusChip,
   ],
