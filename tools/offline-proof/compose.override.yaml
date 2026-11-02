@@ -1,0 +1,34 @@
+# Test-only override for the sibling's deploy/compose.local.yaml (contracts/http-serving.md
+# §Local-only request counter). Used with --profile web. Never used for a release.
+#
+# The edge keeps proxying to web:8080. Here web is the counter proxy, which forwards to web-app,
+# the catalogue-enabled app. Nothing is published, and the proxy has no control port.
+services:
+  web:
+    image: sspc-offline-proof:local
+    build:
+      context: ../../sspc-web
+      dockerfile: tools/offline-proof/Dockerfile
+    depends_on:
+      - web-app
+    environment:
+      UPSTREAM: http://web-app:8080
+
+  web-app:
+    profiles:
+      - web
+    image: sspc-web-app:${APP_TAG:-first}
+    build:
+      context: ../../sspc-web
+      args:
+        SSPC_CATALOG: "true"
+        APP_VERSION: ${APP_VERSION:-0.0.0+dev}
+        APP_BUILD: ${APP_BUILD:-local}
+    user: "65532:65532"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
