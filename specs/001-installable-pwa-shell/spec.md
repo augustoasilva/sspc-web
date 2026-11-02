@@ -287,7 +287,7 @@ A visitor to sosaiopracomer.com sees the brand's temporary profile page and can 
 
 **Quality gates**
 
-- **FR-026**: Every pull request into `develop` or `main`, on opening and on every later push, MUST run automatically: linting (including architectural boundary rules and design-token rules), the design source checks, all automated tests, the production builds of the app and the site, a content check of the running site (see Story 8), and scans for vulnerable dependencies, exposed secrets and vulnerable images. Each result MUST appear on the pull request, and a failing check MUST be named.
+- **FR-026**: Every push to a pull request into `develop` or `main` while it is open (its opening included), and every push to `develop` or `main` after a merge, MUST run automatically: linting (including architectural boundary rules and design-token rules), the design source checks, all automated tests, the production builds of the app and the site, a content check of the running site (see Story 8), and scans for vulnerable dependencies, exposed secrets and vulnerable images. Each result MUST appear on the pull request, and a failing check MUST be named.
 - **FR-027**: The production build of the app MUST stay within a size budget: warning at 400 kB and error at 600 kB for the initial download.
 - **FR-028**: The same checks MUST run after every merge into `develop` or `main`.
 - **FR-029**: The checks MUST NOT publish, deploy, or hold deployment secrets.
