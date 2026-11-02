@@ -1,0 +1,24 @@
+<div class="sspc-catalog__row">
+  <p class="type-label-sm">info, sem ação</p>
+  <sspc-banner tone="info">Tudo fica salvo neste aparelho.</sspc-banner>
+</div>
+
+<div class="sspc-catalog__row">
+  <p class="type-label-sm">info, com ação</p>
+  <sspc-banner tone="info" actionLabel="Atualizar">Nova versão disponível.</sspc-banner>
+</div>
+
+<div class="sspc-catalog__row">
+  <p class="type-label-sm">info, ação ocupada</p>
+  <sspc-banner tone="info" actionLabel="Atualizar" [busy]="true">Nova versão disponível.</sspc-banner>
+</div>
+
+<div class="sspc-catalog__row">
+  <p class="type-label-sm">erro, sem ação</p>
+  <sspc-banner tone="error">Conexão insegura. Abra o endereço HTTPS confiável para instalar e usar offline.</sspc-banner>
+</div>
+
+<div class="sspc-catalog__row">
+  <p class="type-label-sm">erro, com ação</p>
+  <sspc-banner tone="error" actionLabel="Tentar de novo">Não foi possível atualizar. Tente de novo.</sspc-banner>
+</div>

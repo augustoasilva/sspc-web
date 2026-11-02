@@ -1,0 +1,31 @@
+// SspcBanner: tokens only. Radius 20, padding 16, shadow for the update banner.
+:host {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sspc-spacing-base) * 3);
+  padding: calc(var(--sspc-spacing-base) * 4);
+  border-radius: var(--sspc-rounded-lg);
+  box-shadow: var(--sspc-elevation-floating);
+}
+
+:host(.sspc-banner--info) {
+  background: var(--sspc-color-secondary-container);
+  color: var(--sspc-color-on-secondary-container);
+}
+
+:host(.sspc-banner--error) {
+  background: var(--sspc-color-error-container);
+  color: var(--sspc-color-on-error-container);
+}
+
+.sspc-banner__message {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+
+.sspc-banner__message--truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

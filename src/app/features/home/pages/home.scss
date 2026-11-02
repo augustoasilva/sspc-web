@@ -1,0 +1,36 @@
+// Home placeholder: a centred card on the surface, tokens only.
+:host {
+  display: block;
+}
+
+.sspc-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100dvh - calc(var(--sspc-spacing-base) * 40));
+}
+
+.sspc-home__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--sspc-spacing-base) * 3);
+  max-width: calc(var(--sspc-spacing-base) * 70);
+  padding: calc(var(--sspc-spacing-base) * 6);
+  border-radius: var(--sspc-rounded-lg);
+  background: var(--sspc-color-surface-container-low);
+  text-align: center;
+}
+
+.sspc-home__name,
+.sspc-home__message {
+  margin: 0;
+}
+
+.sspc-home__name {
+  color: var(--sspc-color-primary);
+}
+
+.sspc-home__message {
+  color: var(--sspc-color-on-surface-variant);
+}

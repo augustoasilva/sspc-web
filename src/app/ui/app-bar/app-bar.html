@@ -1,0 +1,12 @@
+@if (showBack()) {
+  <button type="button" class="sspc-app-bar__back" [attr.aria-label]="backLabel()" (click)="back.emit()">
+    <svg lucideArrowLeft aria-hidden="true"></svg>
+  </button>
+}
+<div class="sspc-app-bar__title">
+  @if (overline()) {
+    <p class="sspc-app-bar__overline type-label-sm">{{ overline() }}</p>
+  }
+  <h1 class="sspc-app-bar__heading" [class.type-title-lg]="!overline()" [class.type-title-md]="!!overline()">{{ heading() }}</h1>
+</div>
+<div class="sspc-app-bar__end"><ng-content select="[end]" /></div>

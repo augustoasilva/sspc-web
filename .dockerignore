@@ -1,0 +1,16 @@
+node_modules
+dist
+.git
+.github
+specs
+.specify
+.claude
+.agents
+presets
+site
+tools/offline-proof
+security
+scripts
+*.md
+!DESIGN.md
+.env*

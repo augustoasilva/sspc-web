@@ -1,0 +1,36 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+    groups:
+      angular:
+        patterns:
+          - "@angular/*"
+      all:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@angular/*"
+  - package-ecosystem: docker
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /site
+    target-branch: develop
+    schedule:
+      interval: weekly
+  - package-ecosystem: docker
+    directory: /tools/offline-proof
+    target-branch: develop
+    schedule:
+      interval: weekly
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: develop
+    schedule:
+      interval: weekly

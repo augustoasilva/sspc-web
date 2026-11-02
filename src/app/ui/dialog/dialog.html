@@ -1,0 +1,21 @@
+@if (open()) {
+  <div class="sspc-dialog__scrim" (click)="dismiss()"></div>
+  <div
+    #panel
+    class="sspc-dialog__panel"
+    role="alertdialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="headingId()"
+    [attr.aria-describedby]="descriptionId()"
+    cdkTrapFocus
+    cdkTrapFocusAutoCapture
+    (keydown.escape)="dismiss()"
+  >
+    <h2 class="sspc-dialog__heading type-headline-md" [id]="headingId()">{{ heading() }}</h2>
+    <p class="sspc-dialog__description type-body-md" [id]="descriptionId()">{{ description() }}</p>
+    <div class="sspc-dialog__actions">
+      <button sspc-button variant="primary" data-action="primary" (click)="confirm()">{{ primaryLabel() }}</button>
+      <button sspc-button variant="secondary" data-action="secondary" cdkFocusInitial (click)="dismiss()">{{ secondaryLabel() }}</button>
+    </div>
+  </div>
+}

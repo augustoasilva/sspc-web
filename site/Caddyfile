@@ -1,0 +1,48 @@
+# Site image runtime (contracts/http-serving.md §Site). Same global options and filtered default log
+# as the app. There is no log directive in the site block, so the site writes no access log (SEC-008).
+# Static files only: no SPA fallback, no service worker, no cookies (FR-035).
+{
+	admin off
+	auto_https off
+	servers {
+		protocols h1
+	}
+	log {
+		output stderr
+		format filter {
+			wrap json
+			fields {
+				request delete
+			}
+		}
+	}
+}
+
+:8080 {
+	root * /srv
+
+	header {
+		Content-Security-Policy "default-src 'self'; script-src 'none'; object-src 'none'; img-src 'self'; style-src 'self'; connect-src 'none'; worker-src 'none'; manifest-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		# No build step and no hashed names here, so nothing is immutable: every response, the 404
+		# page included, is revalidated on each load (a matcher on *.html would miss /links/).
+		Cache-Control "no-cache"
+	}
+
+	# /links is the links page; the slash-less address goes to the slashed one.
+	@links_no_slash path /links
+	redir @links_no_slash /links/ permanent
+
+	# A plain 404 page for any unknown path, with the same headers.
+	handle_errors {
+		@not_found expression {http.error.status_code} == 404
+		header @not_found Content-Type "text/html; charset=utf-8"
+		respond @not_found "<!doctype html><html lang=pt-BR><meta charset=utf-8><meta name=viewport content=width=device-width,initial-scale=1><title>Não encontrado</title><p>Página não encontrada.</p>" 404
+	}
+
+	# /, /links/ and the stylesheet and images by their own names; a directory answers its index.
+	try_files {path} {path}/index.html
+	file_server
+}

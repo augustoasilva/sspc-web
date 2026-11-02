@@ -1,0 +1,38 @@
+// Shell layout: a full-height column; the page scrolls, the bars stay fixed.
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  height: 100dvh;
+  overscroll-behavior: none;
+  background: var(--sspc-color-surface);
+}
+
+// The scrolling area. Its padding sits on the inner content (below): Safari drops the padding
+// of a scroll container while it scrolls, which let content touch both bars.
+.sspc-shell__main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.sspc-shell__content {
+  padding: calc(var(--sspc-spacing-base) * 4) max(calc(var(--sspc-spacing-base) * 5), var(--sspc-safe-right))
+    calc(var(--sspc-spacing-base) * 4) max(calc(var(--sspc-spacing-base) * 5), var(--sspc-safe-left));
+}
+
+// The banner slot floats its banners above the page: a gap between them, and room below for the
+// shadow, so the page content does not sit against the banner (the catalogue did).
+.sspc-shell__banner {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sspc-spacing-base) * 3);
+}
+
+.sspc-shell__banner:not(:empty) {
+  margin-bottom: calc(var(--sspc-spacing-base) * 6);
+}
+
+.sspc-shell__banner:empty {
+  display: none;
+}

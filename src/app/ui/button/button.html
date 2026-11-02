@@ -1,0 +1,6 @@
+@if (loading()) {
+  <svg lucideLoaderCircle class="sspc-button__spinner" aria-hidden="true"></svg>
+} @else {
+  <ng-content select="[icon]" />
+}
+<span class="sspc-button__label type-label-lg"><ng-content /></span>

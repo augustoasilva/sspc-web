@@ -3,31 +3,57 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "design:lint": "design.md lint DESIGN.md",
+    "tokens:build": "node tools/build-tokens.mjs",
+    "tokens:check": "npm run tokens:build && git diff --exit-code -- src/app/ui/tokens site/assets/css/tokens.css",
+    "prebuild": "npm run design:lint && npm run tokens:build",
+    "pretest": "npm run design:lint && npm run tokens:build",
+    "lint": "eslint . && stylelint \"src/app/ui/**/*.scss\" --allow-empty-input",
     "build": "ng build",
+    "test": "ng test",
+    "test:tools": "vitest run --config vitest.tools.config.ts",
+    "policy": "node scripts/policy/workflow.mjs && node scripts/policy/dockerfiles.mjs && node scripts/policy/agent-settings.mjs && node scripts/policy/caddyfile.mjs && node scripts/policy/image-metadata.mjs && node scripts/policy/validation-record.mjs && node scripts/policy/exceptions.mjs",
+    "audit": "node scripts/policy/npm-audit.mjs",
+    "start": "ng serve",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test:watch": "ng test"
   },
   "private": true,
   "packageManager": "npm@11.19.0",
   "dependencies": {
-    "@angular/common": "^22.2.0",
-    "@angular/compiler": "^22.2.0",
-    "@angular/core": "^22.2.0",
-    "@angular/forms": "^22.2.0",
-    "@angular/platform-browser": "^22.2.0",
-    "@angular/router": "^22.2.0",
-    "@angular/service-worker": "^22.2.0",
+    "@angular/cdk": "22.2.5",
+    "@angular/common": "^22.2.4",
+    "@angular/compiler": "^22.2.4",
+    "@angular/core": "^22.2.4",
+    "@angular/forms": "^22.2.4",
+    "@angular/platform-browser": "^22.2.4",
+    "@angular/router": "^22.2.4",
+    "@angular/service-worker": "^22.2.4",
+    "@lucide/angular": "1.66.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular/build": "^22.2.1",
-    "@angular/cli": "^22.2.1",
-    "@angular/compiler-cli": "^22.2.0",
+    "@angular/build": "^22.2.5",
+    "@angular/cli": "^22.2.5",
+    "@angular/compiler-cli": "^22.2.4",
+    "@google/design.md": "0.4.0",
+    "angular-eslint": "^22.6.0",
+    "axe-core": "4.13.0",
+    "eslint": "^10.14.0",
     "jsdom": "^30.0.0",
+    "postcss-scss": "4.0.9",
     "prettier": "^3.8.1",
+    "style-dictionary": "5.5.5",
+    "stylelint": "17.16.0",
     "typescript": "^6.0.3",
-    "vitest": "^5.0.3"
+    "typescript-eslint": "8.72",
+    "vitest": "^5.0.3",
+    "yaml": "2.9.1"
+  },
+  "overrides": {
+    "@google/design.md": {
+      "zod": "^4.6.6"
+    }
   }
 }

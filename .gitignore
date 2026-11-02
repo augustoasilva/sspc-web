@@ -45,4 +45,11 @@ Thumbs.db
 
 # Speckit Github
 .agents
-.claude
+.claude/*
+!.claude/settings.json
+
+# Secrets and local environment
+.env*
+*.enc.yaml
+secrets/
+*.key

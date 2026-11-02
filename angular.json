@@ -8,10 +8,14 @@
   "projects": {
     "sspc-web": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "sspc",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -24,15 +28,22 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"]
+            "styles": [
+              "src/styles.scss"
+            ],
+            "define": {
+              "APP_VERSION": "'0.0.0+dev'",
+              "APP_BUILD": "'local'",
+              "SSPC_CATALOG": "true"
+            }
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "400kB",
+                  "maximumError": "600kB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -41,7 +52,21 @@
                 }
               ],
               "outputHashing": "all",
-              "serviceWorker": "ngsw-config.json"
+              "serviceWorker": "ngsw-config.json",
+              "define": {
+                "APP_VERSION": "'0.0.0+dev'",
+                "APP_BUILD": "'local'",
+                "SSPC_CATALOG": "false"
+              },
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                },
+                "fonts": false
+              },
+              "sourceMap": false
             },
             "development": {
               "optimization": false,
@@ -61,7 +86,10 @@
               "buildTarget": "sspc-web:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test"

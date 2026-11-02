@@ -1,0 +1,68 @@
+<section class="sspc-about" aria-labelledby="about-title">
+  <header class="sspc-about__hero">
+    <p class="sspc-about__badge type-label-md">
+      <svg lucideBookOpen aria-hidden="true"></svg>
+      <span>Caderno de campo · Teresina, PI</span>
+    </p>
+    <div class="sspc-about__monogram" aria-hidden="true">
+      <svg lucideUtensils class="sspc-about__utensils"></svg>
+      <span class="sspc-about__star">
+        <svg lucideStar></svg>
+      </span>
+    </div>
+    <h1 id="about-title" class="sspc-about__title type-headline-md">SSPC Studio</h1>
+    <p class="sspc-about__description type-body-md">
+      Curadoria independente, relatos sinceros de mesa e documentação gastronômica artesanal.
+    </p>
+  </header>
+
+  <figure class="sspc-about__photo">
+    <div class="sspc-about__photo-block" aria-hidden="true"></div>
+    <figcaption class="sspc-about__caption type-label-md">Registro pessoal • Arquivo Gastronômico</figcaption>
+  </figure>
+
+  <ul class="sspc-about__card">
+    <li sspc-list-row label="Versão">
+      <span class="sspc-about__pill type-label-md">{{ version.display }}</span>
+    </li>
+    <li sspc-list-row label="Conexão">
+      @if (connectivity.online()) {
+        <sspc-status-chip tone="positive" [dot]="true">{{ connectivity.valueLabel() }}</sspc-status-chip>
+      } @else {
+        <sspc-status-chip tone="neutral">{{ connectivity.valueLabel() }}</sspc-status-chip>
+      }
+    </li>
+    <li sspc-list-row label="Armazenamento">
+      @switch (storage.state()) {
+        @case ('granted') {
+          <sspc-status-chip tone="positive">
+            <svg lucideShieldCheck icon aria-hidden="true"></svg>
+            Protegido no aparelho
+          </sspc-status-chip>
+        }
+        @case ('denied') {
+          <sspc-status-chip tone="neutral">
+            <svg lucideShield icon aria-hidden="true"></svg>
+            Não protegido
+          </sspc-status-chip>
+        }
+        @case ('unsupported') {
+          <sspc-status-chip tone="neutral">
+            <svg lucideShield icon aria-hidden="true"></svg>
+            Não protegido
+          </sspc-status-chip>
+        }
+      }
+    </li>
+  </ul>
+
+  <footer class="sspc-about__footer">
+    <svg lucideSparkles class="sspc-about__sparkle" aria-hidden="true"></svg>
+    <p class="sspc-about__wordmark type-wordmark">Só Saio Pra Comer</p>
+    <p class="sspc-about__quote type-body-md">“Em mais um review sincero.”</p>
+    <p class="sspc-about__place type-label-md">
+      <svg lucideMapPin aria-hidden="true"></svg>
+      <span>Teresina, Piauí</span>
+    </p>
+  </footer>
+</section>

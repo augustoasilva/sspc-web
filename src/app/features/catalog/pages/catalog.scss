@@ -1,0 +1,74 @@
+// Catalogue layout (T079): tokens only. The sections stack in a single column at phone width.
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sspc-spacing-base) * 3);
+}
+
+.sspc-catalog__intro {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sspc-spacing-base) * 1);
+  padding: calc(var(--sspc-spacing-base) * 4);
+  border-radius: var(--sspc-rounded-xl);
+  background: var(--sspc-color-surface-container-low);
+  color: var(--sspc-color-on-surface);
+}
+
+.sspc-catalog__intro p:not(.type-headline-md) {
+  color: var(--sspc-color-on-surface-variant);
+}
+
+.sspc-catalog__field {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sspc-spacing-base) * 2);
+  color: var(--sspc-color-on-surface);
+
+  input {
+    min-height: calc(var(--sspc-spacing-base) * 12);
+    padding: 0 calc(var(--sspc-spacing-base) * 3);
+    border: var(--sspc-stroke-hairline) solid var(--sspc-color-outline);
+    border-radius: var(--sspc-rounded-lg);
+    background: var(--sspc-color-surface-container-lowest);
+    color: var(--sspc-color-on-surface);
+    font: inherit;
+  }
+}
+
+.sspc-catalog__section {
+  border-radius: var(--sspc-rounded-xl);
+  background: var(--sspc-color-surface-container-low);
+  color: var(--sspc-color-on-surface);
+
+  > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--sspc-spacing-base) * 2);
+    min-height: calc(var(--sspc-spacing-base) * 12);
+    padding: 0 calc(var(--sspc-spacing-base) * 4);
+    cursor: pointer;
+  }
+}
+
+.sspc-catalog__count {
+  color: var(--sspc-color-on-surface-variant);
+}
+
+// One theme block of a section. Setting data-theme here selects that theme's colors for
+// the block only (tokens.css), so both themes are visible whatever the device setting.
+.sspc-catalog__theme {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--sspc-spacing-base) * 3);
+  margin: 0 calc(var(--sspc-spacing-base) * 2) calc(var(--sspc-spacing-base) * 3);
+  padding: calc(var(--sspc-spacing-base) * 4);
+  border-radius: var(--sspc-rounded-lg);
+  background: var(--sspc-color-surface);
+  color: var(--sspc-color-on-surface);
+
+  > p {
+    color: var(--sspc-color-on-surface-variant);
+  }
+}

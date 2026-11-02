@@ -1,0 +1,7 @@
+# Only the served files reach the build context; everything else (tests, the Dockerfile, notes)
+# stays out of the image (SEC-005).
+*
+!index.html
+!links/
+!assets/
+!Caddyfile
