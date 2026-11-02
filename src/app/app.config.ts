@@ -1,3 +1,4 @@
+import { BIG_PAYLOAD } from './core/big-payload';
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideEnvironmentInitializer, inject, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -8,6 +9,7 @@ import { StoragePersistence } from './core/storage-persistence';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
+    { provide: 'bigPayload', useValue: BIG_PAYLOAD },
     provideRouter(routes),
     // Asks once for persistent storage at start-up; never blocks the app (SEC-012).
     provideEnvironmentInitializer(() => {
