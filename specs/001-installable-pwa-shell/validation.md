@@ -61,10 +61,10 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 
 | Item | Done |
 |------|------|
-| Test-only configuration removed, stack stopped, test images removed | not done |
-| LAN exposure stopped | not done |
-| Trust profile and trust removed from the phone | not done |
-| Site data and installed app storage cleared | not done |
+| Test-only configuration removed, stack stopped, test images removed | done (owner reported; checked on the computer: no stack containers, no test images, dev server stopped, 2026-11-02) |
+| LAN exposure stopped | done (owner reported; checked on the computer: no stack containers, no test images, dev server stopped, 2026-11-02) |
+| Trust profile and trust removed from the phone | done (owner reported, 2026-11-02) |
+| Site data and installed app storage cleared | done (owner reported, 2026-11-02) |
 
 ## Design deviations accepted by the owner (research G1–G11)
 
