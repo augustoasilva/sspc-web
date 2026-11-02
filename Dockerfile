@@ -18,6 +18,8 @@ RUN apk upgrade --no-cache brotli-libs curl libcurl
 RUN setcap -r /usr/bin/caddy \
  && mkdir -p /data /config \
  && chown 65532:65532 /data /config
+# CI break 6 (throwaway, do not merge): a lockfile with a known high-severity lodash version.
+RUN mkdir -p /opt/break && printf '%s' '{"name":"break","lockfileVersion":3,"requires":true,"packages":{"":{"name":"break"},"node_modules/lodash":{"version":"4.17.20"}}}' > /opt/break/package-lock.json
 COPY --from=build /src/dist/sspc-web/browser /srv
 COPY Caddyfile /etc/caddy/Caddyfile
 VOLUME ["/data", "/config"]
