@@ -10,7 +10,7 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 | iPhone model and iOS version | iPhone 15 Pro Max, iOS 26.6.1 (owner) |
 | App version and build tested | installed: `0.0.0+dev` (build `first`); test server later switched to `0.0.1+dev` (build `second`) |
 | Storage protection observed (R-04) | "Protegido no aparelho" (owner, from About; D2 step 3) |
-| Total time of one complete D1–D4 run (SC-009: 30 minutes or fewer, phone trust already done) | pending |
+| Total time of one complete D1–D4 run (SC-009: 30 minutes or fewer, phone trust already done) | 20 minutes (owner reported): within the 30-minute limit |
 
 ## D1. Web option off and the counter
 
@@ -26,7 +26,7 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 | Step | Result | Notes |
 |------|--------|-------|
 | 1. Installed to the Home Screen; was 10 seconds after the first screen enough? | pass (owner reported, case 2) | 10 seconds enough: owner to confirm |
-| 2. Five online launches: frame count of each (60 or fewer passes, FR-003) | pass (owner reported, case 3) | measured in seconds instead of frames (owner's choice, option 1): each launch opened in under 0.5 s, at 60 fps that is at most 30 frames, within the 60-frame limit. Start point: the owner's zoom-in on the tap, to confirm |
+| 2. Five online launches: frame count of each (60 or fewer passes, FR-003) | pass (owner reported, case 3) | 30 frames or less on every launch (5 of 5), within the 60-frame limit. Measured in seconds (owner's choice, option 1): each launch opened in under 0.5 s, which at 60 fps is at most 30 frames. Start point: the owner's zoom-in on the tap, to confirm |
 | 3. Connection chip "Conectado"; About shows name, description, version, "Online", storage | pass (owner reported) | chip "Conectado" and "Sem conexão"; About shows the name, description, version `0.0.3+dev (fourth)`, "Online" and "Protegido no aparelho" |
 | 4. Light and dark switch live, Portuguese text, larger text sizes do not clip | pass (owner reported, catalogue at `/_ds`, test build) | live switch, typed text kept, larger text without clipping, reduced motion stops the chip dot, dialog closes and returns focus; every catalogue section compared with its Stitch board in light and dark: no difference reported. During the check the app bar and tab bar were squeezed on the long catalogue page; fixed (bars keep their height) and re-checked |
 | 5. About first, offline (photo present or not yet supplied) | pass (owner reported) | the page loads offline with no missing text; the photo is the gradient block until OI-3 |
@@ -38,7 +38,7 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 
 | Check | Result |
 |-------|--------|
-| Condition 1, airplane mode: 5 launches opened (timing recorded) | pass (owner reported, case 4): 5 of 5 opened; each launch under 0.5 s, at 60 fps at most 30 frames, within the 60-frame limit (measured in seconds, option 1) |
+| Condition 1, airplane mode: 5 launches opened (timing recorded) | pass (owner reported, case 4): 5 of 5 opened; 30 frames or less on every launch, within the 60-frame limit (measured in seconds, option 1: each under 0.5 s) |
 | Condition 1: counter difference per launch (0 expected) | pass: 5 of 5 runs with difference 0. Counter read on the computer (before, after): run 1 26, 26; run 2 29, 29; run 3 32, 32; run 4 35, 35; run 5 38, 38. The counter never went down, so no trial is void |
 | Condition 2, Wi-Fi on and the stack stopped: 5 launches opened, no error page | pass (owner reported, case 5): 5 of 5 opened; each screen fully loaded in under 1 s (video timestamps); no error page. Perfil showed "Online" with the stack down: expected, because the device still reports a network (spec A-012); the record does not claim the server answered |
 | Interrupted first load completes and then works offline | pass (owner reported, case 6) |
@@ -55,7 +55,7 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 | 9. Offline tap applies the downloaded update | pass (owner reported) | |
 | 10. Several versions: the newest is offered, the skipped one never | pass (owner reported) | |
 | 11. Rollback is offered as an update | pass (owner reported) | |
-| 12. SC-003 trials (passes out of 20; all 20 required) | pass (owner reported): 20 of 20 | 20 banner appearances while typing the catalogue field; the owner reported the trials as correct |
+| 12. SC-003 trials (passes out of 20; all 20 required) | pass (owner reported): 20 of 20 | 20 banner appearances while typing the catalogue field. The banner showed near one second in every trial (owner reported), within the 5-second limit |
 
 ## Cleanup (SEC-010)
 

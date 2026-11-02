@@ -1,2 +1,71 @@
 # ExceptionRecord fields: id, scope, target, rationale, compensating_controls, approver, approved, expires
-exceptions: []
+# Image exceptions feed the Trivy ignore file by id (scripts/policy/exceptions.mjs). Each expires within
+# 30 days of approval; renew only by a new decision, and remove each entry when the pinned Caddy image
+# is rebuilt with a patched Go toolchain (SEC-006).
+exceptions:
+  - id: CVE-2026-116587
+    scope: image
+    target: usr/bin/caddy in caddy:2.11.7 (go-jose v3 and v4)
+    rationale: >-
+      The Caddy 2.11.7 binary is built with go1.26.8 and bundles go-jose; the fixed go-jose v4.1.6 is not in
+      the pinned release. No newer Caddy release exists on Docker Hub (2.11.7 is the newest tag).
+    compensating_controls: >-
+      The site and app serve static files only, and the configuration uses no JWT or JOSE directive. The
+      Caddy admin API is off (admin off) and the server speaks HTTP/1.1 only (protocols h1). The image runs read-only,
+      as UID 65532, with all capabilities dropped and no-new-privileges. Its only exposure is the home LAN
+      while the test stack runs.
+    approver: Augusto Silva (owner)
+    approved: 2026-11-02
+    expires: 2026-12-02
+  - id: CVE-2026-78669
+    scope: image
+    target: usr/bin/caddy in caddy:2.11.7 (golang.org/x/net and Go net/http HTTP/2)
+    rationale: >-
+      The HTTP/2 SETTINGS-frame denial of service in golang.org/x/net (fixed in 0.60.0, the pinned Caddy
+      binary has 0.59.0) and in the Go standard library net/http/internal/http2. The fixed toolchain is not in
+      the pinned Caddy release.
+    compensating_controls: >-
+      HTTP/2 is not served: both Caddyfiles set protocols h1, so the SETTINGS frames of this CVE are not
+      processed. Admin API off. Read-only, non-root, no capabilities, no-new-privileges. Only the home LAN can
+      reach the stack, and only during the test period.
+    approver: Augusto Silva (owner)
+    approved: 2026-11-02
+    expires: 2026-12-02
+  - id: CVE-2026-111943
+    scope: image
+    target: usr/bin/caddy in caddy:2.11.7 (Go standard library crypto/x509)
+    rationale: >-
+      crypto/x509 accepts untrusted intermediate certificates in the Go standard library used to build the
+      pinned Caddy binary (go1.26.8). The fixed versions are go1.26.10 and go1.27.3.
+    compensating_controls: >-
+      Caddy makes no outbound TLS connections and verifies no client certificates; it terminates no TLS in
+      these images (auto_https off, TLS ends at the edge). Admin API off. Read-only, non-root, no capabilities.
+    approver: Augusto Silva (owner)
+    approved: 2026-11-02
+    expires: 2026-12-02
+  - id: CVE-2026-78667
+    scope: image
+    target: usr/bin/caddy in caddy:2.11.7 (Go standard library net/http, Range headers)
+    rationale: >-
+      Denial of service through crafted HTTP Range headers in the Go standard library net/http used to build
+      the pinned Caddy binary (go1.26.8). The fixed versions are go1.26.9 and go1.27.2. The static file server
+      answers Range requests, so the path is reachable; the exposure is accepted for the test period.
+    compensating_controls: >-
+      Only static files are served; the file server cannot run code. Read-only, non-root, no capabilities,
+      no-new-privileges, the image is replaced by a rebuild at the next Caddy release. Only the home LAN can
+      reach the stack, and only during the test period.
+    approver: Augusto Silva (owner)
+    approved: 2026-11-02
+    expires: 2026-12-02
+  - id: CVE-2026-97031
+    scope: image
+    target: usr/bin/caddy in caddy:2.11.7 (Go standard library crypto/tls, Encrypted Client Hello)
+    rationale: >-
+      A denial of service through multiple ECH outer extension references in crypto/tls of the Go standard
+      library used to build the pinned Caddy binary (go1.26.8). The scan lists no fixed version for it.
+    compensating_controls: >-
+      TLS is not terminated in these images (auto_https off; TLS ends at the edge), so the ECH code is not
+      reached through the image. Admin API off. Read-only, non-root, no capabilities, no-new-privileges.
+    approver: Augusto Silva (owner)
+    approved: 2026-11-02
+    expires: 2026-12-02

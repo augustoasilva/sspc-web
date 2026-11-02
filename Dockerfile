@@ -11,6 +11,9 @@ COPY . .
 RUN npm run build -- --define "APP_VERSION='${APP_VERSION}'" --define "APP_BUILD='${APP_BUILD}'" --define "SSPC_CATALOG=${SSPC_CATALOG}"
 
 FROM caddy:2.11.7@sha256:36c24ad91a7ff7bc4c87fe22bfa8df3c4b18da0773d73fc12ee2c52b98c0bb7e
+# Patched Alpine packages with the fixed versions of the CI scan (brotli, curl): the base image is pinned,
+# so these two are upgraded explicitly. Remove this line when the pinned Caddy image carries them.
+RUN apk upgrade --no-cache brotli-libs curl libcurl
 # The pinned Caddy binary carries a file capability that fails under cap_drop ALL; drop it.
 RUN setcap -r /usr/bin/caddy \
  && mkdir -p /data /config \

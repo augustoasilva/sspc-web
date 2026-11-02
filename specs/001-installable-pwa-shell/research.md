@@ -396,6 +396,8 @@ Vitest 5.0.5 through `@angular/build:unit-test` (jsdom) with `TestbedHarnessEnvi
 
 **Measured after Phase 4 (`npm run build`, 2026-11-02)**: initial **264.54 kB raw**, 68.65 kB estimated transfer (`main` 131.25 kB, `chunk` 125.96 kB, `styles` 7.33 kB); the two lazy routes are 340 B and 338 B. Below the 400 kB warning; no lever applied (T054).
 
+**Final measurement (T137, `npm run build` on the final lockfile, 2026-11-02)**: initial **327.78 kB raw**, 78.45 kB estimated transfer (`main` 169.97 kB, `chunk` 148.16 kB, `styles` 9.65 kB); lazy `dialog` 17.09 kB, `about-routes` 8.72 kB, `home-routes` 1.42 kB. **Below the 400 kB warning with 72 kB of margin.** The growth since Phase 4 (264.54 kB) was not split per feature; no lever applied.
+
 ### R-26 Security and privacy requirements (SEC-001 to SEC-012) mapped to the design
 
 Added to the spec after the security review. This table is the trace from each requirement to the artefact that carries it; the sections named hold the reasoning.
