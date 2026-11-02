@@ -12,7 +12,7 @@
   border-radius: var(--sspc-rounded-full);
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 150ms ease;
+  transition: background-color 150ms ease, transform 150ms ease, filter 150ms ease;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -21,7 +21,8 @@
   color: var(--sspc-color-on-primary);
 }
 
-:host(.sspc-button--primary:active) {
+:host(.sspc-button--primary:active),
+:host(.sspc-button--primary[aria-pressed='true']) {
   background: var(--sspc-color-primary-pressed);
 }
 
@@ -53,8 +54,35 @@
   padding: 0;
 }
 
+// An icon-only FAB renders an empty label. Its flex gap would still sit before the icon and
+// push the icon off centre, so the empty label is removed from the layout.
+:host(.sspc-button--fab) .sspc-button__label {
+  display: none;
+}
+
 :host(.sspc-button--fab-extended) {
   padding: 0 calc(var(--sspc-spacing-base) * 4);
+}
+
+// Pressed: while touched, or as a toggle switched on, the button is scaled to 98 % (removed
+// under reduced motion by the global rule). DESIGN.md gives the pressed colour of the primary
+// variant only; the other variants darken with a brightness filter (ghost takes a tonal
+// surface) until the owner decides their pressed colours (Principle VI).
+:host(:not([disabled]):active),
+:host([aria-pressed='true']) {
+  transform: scale(0.98);
+}
+
+:host(.sspc-button--secondary:active),
+:host(.sspc-button--secondary[aria-pressed='true']),
+:host(.sspc-button--destructive:active),
+:host(.sspc-button--destructive[aria-pressed='true']) {
+  filter: brightness(0.9);
+}
+
+:host(.sspc-button--ghost:active),
+:host(.sspc-button--ghost[aria-pressed='true']) {
+  background: var(--sspc-color-surface-container-high);
 }
 
 :host([disabled]) {

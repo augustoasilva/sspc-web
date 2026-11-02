@@ -10,12 +10,14 @@
 </sspc-app-bar>
 
 <main class="sspc-shell__main">
-  <div class="sspc-shell__banner" data-slot="banner">
-    @if (!secureContext.secure) {
-      <sspc-banner tone="error">{{ secureContext.message }}</sspc-banner>
-    }
+  <div class="sspc-shell__content">
+    <div class="sspc-shell__banner" data-slot="banner">
+      @if (!secureContext.secure) {
+        <sspc-banner tone="error">{{ secureContext.message }}</sspc-banner>
+      }
+    </div>
+    <router-outlet />
   </div>
-  <router-outlet />
 </main>
 
 <sspc-tab-bar [items]="tabs" [activeId]="activeId()" ariaLabel="Principal" (itemSelect)="navigate($event)" />

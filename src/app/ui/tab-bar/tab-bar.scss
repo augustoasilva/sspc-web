@@ -4,6 +4,8 @@
   align-items: stretch;
   justify-content: space-around;
   box-sizing: border-box;
+  // A bar keeps its height when the page above is taller than the screen (the catalogue is).
+  flex-shrink: 0;
   height: calc(calc(var(--sspc-spacing-base) * 16) + var(--sspc-safe-bottom));
   padding: 0 calc(var(--sspc-spacing-base) * 4) var(--sspc-safe-bottom);
   background: var(--sspc-color-surface);

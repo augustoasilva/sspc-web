@@ -28,7 +28,7 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 | 1. Installed to the Home Screen; was 10 seconds after the first screen enough? | pass (owner reported, case 2) | 10 seconds enough: owner to confirm |
 | 2. Five online launches: frame count of each (60 or fewer passes, FR-003) | pass (owner reported, case 3) | measured in seconds instead of frames (owner's choice, option 1): each launch opened in under 0.5 s, at 60 fps that is at most 30 frames, within the 60-frame limit. Start point: the owner's zoom-in on the tap, to confirm |
 | 3. Connection chip "Conectado"; About shows name, description, version, "Online", storage | partial | chip "Conectado" and "Sem conexão" checked by owner; About content and storage value pending |
-| 4. Light and dark switch live, Portuguese text, larger text sizes do not clip | not run | |
+| 4. Light and dark switch live, Portuguese text, larger text sizes do not clip | pass (owner reported, catalogue at `/_ds`, test build) | live switch, typed text kept, larger text without clipping, reduced motion stops the chip dot, dialog closes and returns focus; every catalogue section compared with its Stitch board in light and dark: no difference reported. During the check the app bar and tab bar were squeezed on the long catalogue page; fixed (bars keep their height) and re-checked |
 | 5. About first, offline (photo present or not yet supplied) | not run | |
 | 6. Resume after switching apps; behaviour after a long absence | not run | |
 
@@ -68,4 +68,4 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 
 | Deviation | Accepted by and date |
 |-----------|----------------------|
-| | |
+| Pressed colours of the secondary, destructive and ghost buttons: DESIGN.md defines the pressed colour of the primary button only; the others darken by a brightness filter (ghost takes the high surface container) | owner, 2026-11-02 (reported on the device, with the catalogue) |

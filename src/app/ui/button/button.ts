@@ -18,6 +18,8 @@ export type ButtonShape = 'pill' | 'fab' | 'fab-extended';
     '[attr.aria-pressed]': 'pressedAttr()',
     '[attr.disabled]': 'disabled() ? "" : null',
     '(click)': 'onClick()',
+    // A touch listener makes iOS Safari apply :active on the button while it is held.
+    '(touchstart)': 'onTouchStart()',
   },
 })
 export class SspcButton {
@@ -41,6 +43,10 @@ export class SspcButton {
     const value = this.pressed();
     return value === undefined ? null : value ? 'true' : 'false';
   });
+
+  protected onTouchStart(): void {
+    // Intentionally empty: the listener exists only so that :active applies on iOS.
+  }
 
   protected onClick(): void {
     if (!this.loading() && this.pressed() !== undefined) {
