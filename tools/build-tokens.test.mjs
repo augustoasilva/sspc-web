@@ -94,12 +94,11 @@ describe('build-tokens', () => {
       },
     },
     {
-      name: 'given a valid design, when built, then the site stylesheet is light only',
+      name: 'given a valid design, when built, then the site stylesheet has the light values and the dark media block',
       input: 'valid-design.md',
       check: ({ site }) => {
         expect(site).toContain('--sspc-color-primary: #414B3B');
-        expect(site).not.toContain('prefers-color-scheme');
-        expect(site).not.toContain('#8CA87C');
+        expect(site).toContain('prefers-color-scheme: dark');
       },
     },
     {

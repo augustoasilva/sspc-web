@@ -79,6 +79,110 @@
   --sspc-stroke-hairline: calc(var(--sspc-spacing-base) * 0.25);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sspc-color-earth: #CFC6B6;
+    --sspc-color-error: #E59A86;
+    --sspc-color-error-container: #5E2014;
+    --sspc-color-inverse-on-surface: #2E352B;
+    --sspc-color-inverse-surface: #F4EDE3;
+    --sspc-color-neutral: #1C211A;
+    --sspc-color-on-error: #3A120A;
+    --sspc-color-on-error-container: #F6DCD3;
+    --sspc-color-on-primary: #1C211A;
+    --sspc-color-on-primary-container: #E4EDDB;
+    --sspc-color-on-secondary: #F4EDE3;
+    --sspc-color-on-secondary-container: #DCE6D3;
+    --sspc-color-on-surface: #F4EDE3;
+    --sspc-color-on-surface-variant: #CFC6B6;
+    --sspc-color-on-tertiary-container: #F1E4C8;
+    --sspc-color-outline: #7C8573;
+    --sspc-color-outline-variant: #3A4236;
+    --sspc-color-primary: #8CA87C;
+    --sspc-color-primary-container: #414B3B;
+    --sspc-color-primary-pressed: #7A956B;
+    --sspc-color-secondary: #526747;
+    --sspc-color-secondary-container: #2E3A29;
+    --sspc-color-success: #8DBF90;
+    --sspc-color-surface: #1C211A;
+    --sspc-color-surface-container: #252B22;
+    --sspc-color-surface-container-high: #2E352B;
+    --sspc-color-surface-container-low: #21271F;
+    --sspc-color-surface-container-lowest: #171B15;
+    --sspc-color-tertiary: #C9A35A;
+    --sspc-color-tertiary-container: #4A3B1C;
+    --sspc-color-tertiary-ink: #D8B978;
+  }
+}
+
+[data-theme="light"] {
+  --sspc-color-earth: #5D5340;
+  --sspc-color-error: #A1402B;
+  --sspc-color-error-container: #F6DCD3;
+  --sspc-color-inverse-on-surface: #F4EDE3;
+  --sspc-color-inverse-surface: #2E352B;
+  --sspc-color-neutral: #FFF9F3;
+  --sspc-color-on-error: #FFF9F3;
+  --sspc-color-on-error-container: #5E2014;
+  --sspc-color-on-primary: #FFF9F3;
+  --sspc-color-on-primary-container: #2C3428;
+  --sspc-color-on-secondary: #262D22;
+  --sspc-color-on-secondary-container: #2C3428;
+  --sspc-color-on-surface: #414B3B;
+  --sspc-color-on-surface-variant: #5D5340;
+  --sspc-color-on-tertiary-container: #5A4417;
+  --sspc-color-outline: #8A8170;
+  --sspc-color-outline-variant: #E3D8C8;
+  --sspc-color-primary: #414B3B;
+  --sspc-color-primary-container: #DCE6D3;
+  --sspc-color-primary-pressed: #353D30;
+  --sspc-color-secondary: #8CA87C;
+  --sspc-color-secondary-container: #E8EFE1;
+  --sspc-color-success: #679B6B;
+  --sspc-color-surface: #FFF9F3;
+  --sspc-color-surface-container: #F6ECE0;
+  --sspc-color-surface-container-high: #EFE3D4;
+  --sspc-color-surface-container-low: #FBF3EA;
+  --sspc-color-surface-container-lowest: #FFFDF9;
+  --sspc-color-tertiary: #AB8742;
+  --sspc-color-tertiary-container: #F1E4C8;
+  --sspc-color-tertiary-ink: #7A5F28;
+}
+
+[data-theme="dark"] {
+  --sspc-color-earth: #CFC6B6;
+  --sspc-color-error: #E59A86;
+  --sspc-color-error-container: #5E2014;
+  --sspc-color-inverse-on-surface: #2E352B;
+  --sspc-color-inverse-surface: #F4EDE3;
+  --sspc-color-neutral: #1C211A;
+  --sspc-color-on-error: #3A120A;
+  --sspc-color-on-error-container: #F6DCD3;
+  --sspc-color-on-primary: #1C211A;
+  --sspc-color-on-primary-container: #E4EDDB;
+  --sspc-color-on-secondary: #F4EDE3;
+  --sspc-color-on-secondary-container: #DCE6D3;
+  --sspc-color-on-surface: #F4EDE3;
+  --sspc-color-on-surface-variant: #CFC6B6;
+  --sspc-color-on-tertiary-container: #F1E4C8;
+  --sspc-color-outline: #7C8573;
+  --sspc-color-outline-variant: #3A4236;
+  --sspc-color-primary: #8CA87C;
+  --sspc-color-primary-container: #414B3B;
+  --sspc-color-primary-pressed: #7A956B;
+  --sspc-color-secondary: #526747;
+  --sspc-color-secondary-container: #2E3A29;
+  --sspc-color-success: #8DBF90;
+  --sspc-color-surface: #1C211A;
+  --sspc-color-surface-container: #252B22;
+  --sspc-color-surface-container-high: #2E352B;
+  --sspc-color-surface-container-low: #21271F;
+  --sspc-color-surface-container-lowest: #171B15;
+  --sspc-color-tertiary: #C9A35A;
+  --sspc-color-tertiary-container: #4A3B1C;
+  --sspc-color-tertiary-ink: #D8B978;
+}
+
 .type-body-lg {
   font-family: "Bricolage Grotesque", system-ui, sans-serif;
   font-size: 18px;

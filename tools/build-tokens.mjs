@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // Builds the design tokens from the YAML front matter of DESIGN.md (research R-09).
 // Outputs: src/app/ui/tokens/tokens.json (W3C format), src/app/ui/tokens/tokens.css
-// (light on :root, dark under the media query) and the light-only
-// site/assets/css/tokens.css for the static site. Never edit the outputs by hand.
+// (light on :root, dark under the media query) and site/assets/css/tokens.css for the static
+// site (the same light and dark values; the site follows the device like the app). Never edit the outputs by hand.
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -179,7 +179,7 @@ export async function buildTokens(options = {}) {
   const scratch = mkdtempSync(path.join(tmpdir(), 'sspc-sd-'));
   try {
     const appCss = await renderCss(tree, { includeDark: true, destination: path.join(scratch, 'app.css') });
-    const siteCss = await renderCss(tree, { includeDark: false, destination: path.join(scratch, 'site.css') });
+    const siteCss = await renderCss(tree, { includeDark: true, destination: path.join(scratch, 'site.css') });
     mkdirSync(path.dirname(paths.tokensCss), { recursive: true });
     writeFileSync(paths.tokensCss, appCss);
     mkdirSync(path.dirname(paths.siteCss), { recursive: true });
