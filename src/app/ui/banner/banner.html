@@ -1,0 +1,5 @@
+<ng-content select="[icon]" />
+<p class="sspc-banner__message type-body-sm" [class.sspc-banner__message--truncate]="hasAction()"><ng-content /></p>
+@if (hasAction()) {
+  <button sspc-button variant="primary" [loading]="busy()" [disabled]="busy()" (click)="action.emit()">{{ actionLabel() }}</button>
+}

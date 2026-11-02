@@ -1,0 +1,223 @@
+:root {
+  color-scheme: light dark;
+  --sspc-color-earth: #5D5340;
+  --sspc-color-error: #A1402B;
+  --sspc-color-error-container: #F6DCD3;
+  --sspc-color-inverse-on-surface: #F4EDE3;
+  --sspc-color-inverse-surface: #2E352B;
+  --sspc-color-neutral: #FFF9F3;
+  --sspc-color-on-error: #FFF9F3;
+  --sspc-color-on-error-container: #5E2014;
+  --sspc-color-on-primary: #FFF9F3;
+  --sspc-color-on-primary-container: #2C3428;
+  --sspc-color-on-secondary: #262D22;
+  --sspc-color-on-secondary-container: #2C3428;
+  --sspc-color-on-surface: #414B3B;
+  --sspc-color-on-surface-variant: #5D5340;
+  --sspc-color-on-tertiary-container: #5A4417;
+  --sspc-color-outline: #8A8170;
+  --sspc-color-outline-variant: #E3D8C8;
+  --sspc-color-primary: #414B3B;
+  --sspc-color-primary-container: #DCE6D3;
+  --sspc-color-primary-pressed: #353D30;
+  --sspc-color-secondary: #8CA87C;
+  --sspc-color-secondary-container: #E8EFE1;
+  --sspc-color-success: #679B6B;
+  --sspc-color-surface: #FFF9F3;
+  --sspc-color-surface-container: #F6ECE0;
+  --sspc-color-surface-container-high: #EFE3D4;
+  --sspc-color-surface-container-low: #FBF3EA;
+  --sspc-color-surface-container-lowest: #FFFDF9;
+  --sspc-color-tertiary: #AB8742;
+  --sspc-color-tertiary-container: #F1E4C8;
+  --sspc-color-tertiary-ink: #7A5F28;
+  --sspc-component-banner-padding: 16px;
+  --sspc-component-button-ghost-height: 48px;
+  --sspc-component-button-ghost-padding: 12px;
+  --sspc-component-button-primary-height: 48px;
+  --sspc-component-button-primary-padding: 14px;
+  --sspc-component-button-secondary-height: 48px;
+  --sspc-component-button-secondary-padding: 14px;
+  --sspc-component-card-padding: 20px;
+  --sspc-component-card-sage-padding: 20px;
+  --sspc-component-editor-padding: 20px;
+  --sspc-component-fab-size: 60px;
+  --sspc-component-link-button-height: 60px;
+  --sspc-component-link-button-padding: 18px;
+  --sspc-component-list-item-padding: 16px;
+  --sspc-component-status-chip-draft-padding: 6px;
+  --sspc-component-status-chip-finished-padding: 6px;
+  --sspc-component-status-chip-none-padding: 6px;
+  --sspc-component-sync-status-error-padding: 8px;
+  --sspc-component-sync-status-padding: 8px;
+  --sspc-component-text-field-height: 52px;
+  --sspc-component-text-field-padding: 14px;
+  --sspc-elevation-floating: 0 calc(var(--sspc-spacing-base) * 2) calc(var(--sspc-spacing-base) * 6) rgba(0, 0, 0, 0.35);
+  --sspc-focus-offset: calc(var(--sspc-spacing-base) * 0.5);
+  --sspc-rounded-full: 9999px;
+  --sspc-rounded-lg: 20px;
+  --sspc-rounded-md: 14px;
+  --sspc-rounded-none: 0px;
+  --sspc-rounded-sm: 8px;
+  --sspc-rounded-xl: 28px;
+  --sspc-spacing-1: 4px;
+  --sspc-spacing-2: 8px;
+  --sspc-spacing-3: 12px;
+  --sspc-spacing-4: 16px;
+  --sspc-spacing-5: 20px;
+  --sspc-spacing-6: 24px;
+  --sspc-spacing-8: 32px;
+  --sspc-spacing-10: 40px;
+  --sspc-spacing-12: 48px;
+  --sspc-spacing-16: 64px;
+  --sspc-spacing-base: 4px;
+  --sspc-spacing-content-max: 640px;
+  --sspc-spacing-gutter: 16px;
+  --sspc-spacing-margin: 20px;
+  --sspc-spacing-tap-target: 48px;
+  --sspc-stroke-focus: calc(var(--sspc-spacing-base) * 0.5);
+  --sspc-stroke-hairline: calc(var(--sspc-spacing-base) * 0.25);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --sspc-color-earth: #CFC6B6;
+    --sspc-color-error: #E59A86;
+    --sspc-color-error-container: #5E2014;
+    --sspc-color-inverse-on-surface: #2E352B;
+    --sspc-color-inverse-surface: #F4EDE3;
+    --sspc-color-neutral: #1C211A;
+    --sspc-color-on-error: #3A120A;
+    --sspc-color-on-error-container: #F6DCD3;
+    --sspc-color-on-primary: #1C211A;
+    --sspc-color-on-primary-container: #E4EDDB;
+    --sspc-color-on-secondary: #F4EDE3;
+    --sspc-color-on-secondary-container: #DCE6D3;
+    --sspc-color-on-surface: #F4EDE3;
+    --sspc-color-on-surface-variant: #CFC6B6;
+    --sspc-color-on-tertiary-container: #F1E4C8;
+    --sspc-color-outline: #7C8573;
+    --sspc-color-outline-variant: #3A4236;
+    --sspc-color-primary: #8CA87C;
+    --sspc-color-primary-container: #414B3B;
+    --sspc-color-primary-pressed: #7A956B;
+    --sspc-color-secondary: #526747;
+    --sspc-color-secondary-container: #2E3A29;
+    --sspc-color-success: #8DBF90;
+    --sspc-color-surface: #1C211A;
+    --sspc-color-surface-container: #252B22;
+    --sspc-color-surface-container-high: #2E352B;
+    --sspc-color-surface-container-low: #21271F;
+    --sspc-color-surface-container-lowest: #171B15;
+    --sspc-color-tertiary: #C9A35A;
+    --sspc-color-tertiary-container: #4A3B1C;
+    --sspc-color-tertiary-ink: #D8B978;
+  }
+}
+
+.type-body-lg {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.55;
+  font-variation-settings: 'wdth' 100, 'opsz' 18;
+}
+
+.type-body-md {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  font-variation-settings: 'wdth' 100, 'opsz' 16;
+}
+
+.type-body-sm {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  font-variation-settings: 'wdth' 100, 'opsz' 14;
+}
+
+.type-display {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  font-variation-settings: 'wdth' 75, 'opsz' 96;
+}
+
+.type-editor {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.65;
+  font-variation-settings: 'wdth' 100, 'opsz' 17;
+}
+
+.type-headline-lg {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  font-variation-settings: 'wdth' 75, 'opsz' 72;
+}
+
+.type-headline-md {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variation-settings: 'wdth' 80, 'opsz' 48;
+}
+
+.type-label-lg {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  font-variation-settings: 'wdth' 95, 'opsz' 16;
+}
+
+.type-label-md {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  font-variation-settings: 'wdth' 95, 'opsz' 14;
+}
+
+.type-label-sm {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  font-variation-settings: 'wdth' 95, 'opsz' 12;
+}
+
+.type-title-lg {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 650;
+  line-height: 1.25;
+  font-variation-settings: 'wdth' 90, 'opsz' 24;
+}
+
+.type-title-md {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.3;
+  font-variation-settings: 'wdth' 95, 'opsz' 18;
+}
+
+.type-wordmark {
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  font-variation-settings: 'wdth' 75, 'opsz' 96;
+}

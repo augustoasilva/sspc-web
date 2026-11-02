@@ -1,0 +1,16 @@
+@for (item of items(); track item.id) {
+  <a
+    class="sspc-tab-bar__item type-label-sm"
+    [class.sspc-tab-bar__item--active]="item.id === activeId()"
+    [href]="item.path"
+    [attr.aria-current]="item.id === activeId() ? 'page' : null"
+    (click)="onClick($event, item.id)"
+  >
+    @switch (item.icon) {
+      @case ('house') { <svg lucideHouse aria-hidden="true"></svg> }
+      @case ('user') { <svg lucideUser aria-hidden="true"></svg> }
+      @case ('calendar') { <svg lucideCalendar aria-hidden="true"></svg> }
+    }
+    <span>{{ item.label }}</span>
+  </a>
+}

@@ -1,0 +1,55 @@
+// SspcAppBar: tokens only. 64 px high plus the top safe area; tonal surface.
+:host {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sspc-spacing-base) * 2);
+  box-sizing: border-box;
+  height: calc(calc(var(--sspc-spacing-base) * 16) + var(--sspc-safe-top));
+  padding: var(--sspc-safe-top) calc(var(--sspc-spacing-base) * 5) 0;
+  background: var(--sspc-color-surface);
+  color: var(--sspc-color-on-surface);
+  border-bottom: var(--sspc-stroke-hairline) solid var(--sspc-color-outline-variant);
+}
+
+.sspc-app-bar__back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--sspc-spacing-base) * 12);
+  height: calc(var(--sspc-spacing-base) * 12);
+  border: 0;
+  border-radius: var(--sspc-rounded-full);
+  background: transparent;
+  color: var(--sspc-color-primary);
+  cursor: pointer;
+}
+
+.sspc-app-bar__back:focus-visible {
+  outline: var(--sspc-stroke-focus) solid var(--sspc-color-tertiary);
+  outline-offset: var(--sspc-focus-offset);
+}
+
+.sspc-app-bar__title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sspc-app-bar__overline {
+  margin: 0;
+  color: var(--sspc-color-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: var(--sspc-stroke-hairline);
+}
+
+.sspc-app-bar__heading {
+  margin: 0;
+  color: var(--sspc-color-primary);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.sspc-app-bar__end {
+  display: inline-flex;
+  align-items: center;
+}

@@ -1,0 +1,21 @@
+// Shell layout: a full-height column; the page scrolls, the bars stay fixed.
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  background: var(--sspc-color-surface);
+}
+
+.sspc-shell__main {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: calc(var(--sspc-spacing-base) * 4) calc(var(--sspc-spacing-base) * 5)
+    calc(var(--sspc-spacing-base) * 4);
+  padding-left: max(calc(var(--sspc-spacing-base) * 5), var(--sspc-safe-left));
+  padding-right: max(calc(var(--sspc-spacing-base) * 5), var(--sspc-safe-right));
+}
+
+.sspc-shell__banner:empty {
+  display: none;
+}

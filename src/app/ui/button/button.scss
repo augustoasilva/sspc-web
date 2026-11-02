@@ -1,0 +1,90 @@
+// SspcButton: tokens only (stylelint rules of stylelint.config.mjs). Sizes come from
+// the generated component and spacing custom properties.
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--sspc-spacing-base) * 2);
+  min-height: var(--sspc-component-button-primary-height);
+  min-width: var(--sspc-component-button-primary-height);
+  padding: 0 calc(var(--sspc-spacing-base) * 3.5);
+  border: 0;
+  border-radius: var(--sspc-rounded-full);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:host(.sspc-button--primary) {
+  background: var(--sspc-color-primary);
+  color: var(--sspc-color-on-primary);
+}
+
+:host(.sspc-button--primary:active) {
+  background: var(--sspc-color-primary-pressed);
+}
+
+:host(.sspc-button--secondary) {
+  background: var(--sspc-color-primary-container);
+  color: var(--sspc-color-on-primary-container);
+}
+
+:host(.sspc-button--ghost) {
+  background: var(--sspc-color-surface);
+  color: var(--sspc-color-primary);
+}
+
+:host(.sspc-button--destructive) {
+  background: var(--sspc-color-error);
+  color: var(--sspc-color-on-error);
+}
+
+:host(.sspc-button--fab),
+:host(.sspc-button--fab-extended) {
+  height: var(--sspc-component-fab-size);
+  min-height: var(--sspc-component-fab-size);
+  border-radius: var(--sspc-rounded-xl);
+  box-shadow: var(--sspc-elevation-floating);
+}
+
+:host(.sspc-button--fab) {
+  width: var(--sspc-component-fab-size);
+  padding: 0;
+}
+
+:host(.sspc-button--fab-extended) {
+  padding: 0 calc(var(--sspc-spacing-base) * 4);
+}
+
+:host([disabled]) {
+  opacity: 0.4;
+  cursor: default;
+}
+
+:host([aria-busy='true']) {
+  cursor: progress;
+}
+
+:host(:focus-visible) {
+  outline: var(--sspc-stroke-focus) solid var(--sspc-color-tertiary);
+  outline-offset: var(--sspc-focus-offset);
+}
+
+.sspc-button__spinner {
+  width: calc(var(--sspc-spacing-base) * 5);
+  height: calc(var(--sspc-spacing-base) * 5);
+  animation: sspc-spin 900ms linear infinite;
+}
+
+@keyframes sspc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sspc-button__spinner {
+    animation: none;
+  }
+}

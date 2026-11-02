@@ -96,6 +96,8 @@ Throwaway image on `caddy:2.11-alpine`, run exactly like the local stack runs `w
 
 Bricolage Grotesque, variable WOFF2, Latin subset (includes Portuguese diacritics), all three axes kept (`wght` 200–800, `wdth` 75–100, `opsz` 12–96: every typography scale of `DESIGN.md` sets `'wdth'` and `'opsz'` in `fontVariation`, and the display, headline and wordmark scales use the condensed widths 75 to 80, so dropping `wdth` would change every heading), `@font-face` with `font-weight: 200 800` and `font-stretch: 75% 100%`, `font-display: swap`, `OFL.txt` alongside, under `src/assets/fonts/`, referenced from `tokens.css`/`styles.scss` so the builder hashes them under `media/`. Subsetting happens once at implementation time with the upstream OFL font; the file size is recorded and counted in the offline cache (not in the JS budget). Verified that the Stitch screens load the font from Google Fonts, which the CSP (`default-src 'self'`) and offline use forbid: self-hosting is mandatory.
 
+**Recorded (2026-11-02, T025):** `src/assets/fonts/bricolage-grotesque-latin.woff2`, 152 316 bytes (148.7 KiB), subset from the upstream `BricolageGrotesque[opsz,wdth,wght].ttf` with `subset-font` (Latin, Latin-1, Latin Extended-A, Portuguese punctuation). Checked with fontkit: axes `wght` 200–800, `wdth` 75–100, `opsz` 12–96 all kept; 320 glyphs; `ã` and `ç` present. `OFL.txt` beside it. The production build emits it under `media/` with a content hash.
+
 ### R-11 Icons
 
 `@lucide/angular`, imported one icon at a time to keep the budget. Mapping from the Material Symbols used in Stitch (the design says "Lucide", Principle V):

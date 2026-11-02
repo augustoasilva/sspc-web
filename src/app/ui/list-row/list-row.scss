@@ -1,0 +1,24 @@
+// SspcListRow: tokens only. Minimum height 40, hairline divider, label 16/400.
+:host {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--sspc-spacing-base) * 3);
+  min-height: calc(var(--sspc-spacing-base) * 10);
+  padding: calc(var(--sspc-spacing-base) * 2) 0;
+  border-bottom: var(--sspc-stroke-hairline) solid var(--sspc-color-outline-variant);
+  list-style: none;
+}
+
+:host(:last-child) {
+  border-bottom: 0;
+}
+
+.sspc-list-row__label {
+  flex: 1 1 auto;
+  color: var(--sspc-color-on-surface-variant);
+}
+
+.sspc-list-row__value {
+  color: var(--sspc-color-on-surface);
+  text-align: right;
+}

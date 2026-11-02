@@ -75,7 +75,7 @@ Slot `[end]` (the connection chip). Output `back`. Fixed, 64 px high plus the to
 | `activeId` | string | active item is bold in the primary color with a filled icon |
 | `ariaLabel` | string | name of the `nav` landmark ("Principal") |
 
-Output `select(id)`; items render as anchors with `href` and the component calls `preventDefault()` then emits, so the shell navigates through the router. `aria-current="page"` on the active item. Height 64 plus the bottom safe area; items ≥ 48×48; label 12/600.
+Output `itemSelect(id)` (renamed from `select`: a `select` output clashes with the native DOM event, rejected by `@angular-eslint/no-output-native`); items render as anchors with `href` and the component calls `preventDefault()` then emits, so the shell navigates through the router. `aria-current="page"` on the active item. Height 64 plus the bottom safe area; items ≥ 48×48; label 12/600.
 
 ## Catalogue (`/_ds`, development only)
 
