@@ -48,9 +48,11 @@ Source of truth for the visuals is the Stitch project "Só Saio Pra Comer Design
 | 2.8 Nova versão disponível | The "Nova versão disponível" banner with an "Atualizar" action above a screen's content, and the connection chip in the header | "Visitas (Com Atualização) - SSPC Studio" / "Visitas (Com Atualização - Dark Theme)" |
 | 2.9 Sobre | About screen: app identity, version, connection state | "Sobre - SSPC Studio" / "Sobre (Dark Theme) - SSPC Studio" |
 | Static site (not in the request's list; added because the site is part of this feature) | Temporary profile page and links page | "Página Temporária (Mobile)", "Página Temporária (Desktop)", "Links - Só Saio Pra Comer" |
-| Design phase (screens the project does not have; created by this feature) | The confirmation dialog, the placeholder home screen "Início" and the insecure-connection notice (SEC-001) | Created in the design phase, light and dark; ids and titles recorded in research.md R-14 |
+| Design phase (screens the project does not have; created by this feature) | The confirmation dialog, the placeholder home screen "Início" and the insecure-connection notice (SEC-001) | "Confirmação de Atualização (Mobile) - SSPC Studio" / "Confirmação de Atualização (Mobile - Dark Theme) - SSPC Studio"; "Início (Mobile) - SSPC Studio" / "Início (Mobile - Dark Theme) - SSPC Studio"; "Início (Aviso de Conexão - Mobile) - SSPC Studio" / "Início (Aviso de Conexão - Mobile - Dark Theme) - SSPC Studio" (ids in research.md R-14) |
 
 The Stitch screens are not yet named with the numbered convention used above (for example, "2.9 Sobre" is currently titled "Sobre - SSPC Studio"), and "1.1 Botões" and "1.5 Banner e diálogo" are not separate screens today. See Assumptions (A-002).
+
+**Accepted deviations (FR-022, SC-007)**: on 2026-11-02 the owner (Augusto Silva) accepted the deviations between the design-phase screens (confirmation dialog, placeholder home, insecure-connection notice; light and dark) and their Stitch layout that are listed in research.md R-14, "Owner decision". The code follows `DESIGN.md` where it differs from those Stitch screens (FR-025).
 
 ## User Scenarios & Testing *(mandatory)*
 

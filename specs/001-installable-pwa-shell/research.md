@@ -210,8 +210,8 @@ Copy used: "Salvar", "Salvando...", "Criar visita", "Cancelar", "Terminei minha 
 
 | # | Gap | Plan default |
 |---|-----|--------------|
-| G1 | **No dialog design** (needed by FR-012 and FR-024) | Build `SspcDialog` from tokens and the banner/card language: radius 20, `surface-container-low`, padding 20, title `title-lg`, body `body-md`, actions stacked: primary "Atualizar agora" over ghost "Agora não"; scrim `inverse-surface` at 50 %. These are starting values only: the design phase creates the dialog in Stitch (T019), aligns it (T020) and records it (T021), and the aligned design replaces them |
-| G2 | **No placeholder home design** (only the "Início" nav entry) | Header as in 2.8 (title "Início"), banner slot, and a centered card using the empty-state language: name "SSPC Studio", message "Em breve, o seu caderno de campo vai morar aqui." (provisional copy), no primary action. Starting values only: the design phase creates the screen in Stitch (T019), aligns it (T020) and records it (T021), and the aligned design replaces them |
+| G1 | **No dialog design** (needed by FR-012 and FR-024) | Build `SspcDialog` from tokens and the banner/card language: radius 20, `surface-container-low`, padding 20, title `title-lg`, body `body-md`, actions stacked: primary "Atualizar agora" over ghost "Agora não"; scrim `inverse-surface` at 50 %. Aligned in Phase 2 (T019 to T021): the Stitch layout and copy are recorded in R-14, with the accepted deviations and their code dispositions. |
+| G2 | **No placeholder home design** (only the "Início" nav entry) | Header as in 2.8 (title "Início"), banner slot, and a centered card using the empty-state language: name "SSPC Studio", message "Em breve, as visitas e os textos da sua equipe aparecerão aqui." (the approved Stitch copy, provisional until OI-7 is confirmed), no primary action. Aligned in Phase 2 (T019 to T021): the Stitch layout and copy are recorded in R-14, with the accepted deviations and their code dispositions. |
 | G3 | Banner icon differs: 2.8 uses a pulsing back chevron (`arrow_back_ios_new`), the catalogue uses `update`; the catalogue appends "(v1.1)" | `refresh-cw`, no version suffix. Update-failure copy (provisional): "Não foi possível atualizar. Tente de novo." with action "Tentar de novo" |
 | G4 | Button/tap-target heights 44 and 32 px vs DESIGN.md 48 px | 48 px everywhere |
 | G5 | Offline About value not drawn | "Offline", same chip with the offline look of the header chip |
@@ -219,7 +219,7 @@ Copy used: "Salvar", "Salvando...", "Criar visita", "Cancelar", "Terminei minha 
 | G7 | About photo is a remote image generated in Stitch; the CSP and offline use forbid remote images | Self-hosted asset supplied by the owner (`public/images/about-hero.webp`, WebP, ≤ 40 kB), shown with an `<img>` and prefetched by the worker (R-02). Until provided: a gradient block from tokens with the same caption |
 | G8 | Stitch screens disagree with each other on `gutter`/`margin` (20/24 vs 16/20) and on some light/dark colors | `DESIGN.md` values only |
 | G9 | Second nav entry is "Perfil" in every design; the shell has no profile | Entry labelled "Perfil" opens `/sobre` (A-014) |
-| G10 | **No design for the insecure-connection notice** required by SEC-001 (message “Conexão insegura. Abra o endereço HTTPS confiável para instalar e usar offline.”) | Reuse `SspcBanner` with `tone="error"` and no action, in the banner slot under the header, using the offline/error container colors of the boards. Starting values only: the design phase creates the notice in Stitch (T019), aligns it (T020) and records it (T021), and the aligned design replaces them |
+| G10 | **No design for the insecure-connection notice** required by SEC-001 (message “Conexão insegura. Abra o endereço HTTPS confiável para instalar e usar offline.”) | Reuse `SspcBanner` with `tone="error"` and no action, in the banner slot under the header, using the offline/error container colors of the boards. Aligned in Phase 2 (T019 to T021): the Stitch layout and copy are recorded in R-14, with the accepted deviations and their code dispositions. |
 | G11 | Stitch sizes and effects outside the DESIGN.md scale: chip padding 10×4 and gap 6, tab bar icon 22 px, 1 px dark-theme borders and list hairlines, a header with blur or shadow (none is recorded above), and a focus ring in tertiary ink in the first draft of the contract | Snapped to DESIGN.md: chip padding 8×4 and gap 8, tab bar icon 24 px, borders and hairlines `--sspc-stroke-hairline` (1 px, derived from `spacing.base`), no header blur or shadow (DESIGN.md gives the soft shadow, `--sspc-elevation-floating`, only to the FAB, dialogs and the update banner), focus ring 2 px in `tertiary` (Old Gold, which DESIGN.md names for focus rings; 3.20:1 on `surface`, 6.92:1 for `dark-tertiary` on `dark-surface`) with `--sspc-focus-offset`, tested at 3:1 as a non-text indicator. `DESIGN.md` states strokes and the shadow only in prose, so `tokens.css` derives them (R-09); owner input OI-9 would move them into `DESIGN.md` |
 
 #### Site screens (mobile "Página Temporária (Mobile)" `c1f308b6…`, desktop `e2e7afaa…`, "Links - Só Saio Pra Comer" `d503e261…`; light only)
@@ -230,11 +230,81 @@ Copy used: "Salvar", "Salvando...", "Criar visita", "Cancelar", "Terminei minha 
 
 #### Design phase record (filled by T018 to T022)
 
-Baseline read at T018: project id of "Só Saio Pra Comer Design System", the asset ids of its light and dark design systems, the ids and titles of all existing screens. Then, per new screen: id, real title, theme, device type, the prompt used, the date. Phase closed on: (date), after (n) review rounds. Nothing is recorded yet.
+Baseline read at T018 (read-only, 2026-11-02):
+
+- **Project**: `projects/14078586146997056175`, "Só Saio Pra Comer Design System" (owned; the constitution's "SSPC Studio" is the name the screens use in their titles).
+- **Design systems** (`list_design_systems`): "Só Saio Pra Comer (Dark Theme)", asset `assets/5d721614eea54b4db7da064a0706adb3`, colour mode DARK, primary `#8ca87c`; "Só Saio Pra Comer", asset `assets/c1c6c94a7af14f60b4069d1071e24e00`, colour mode LIGHT, primary `#414b3b`.
+- **Existing screens**: 27, not 31 (a count error in the first draft of this record). Their ids and titles are in the Stitch project; none is a dialog, a placeholder home or an insecure-connection notice (gaps G1, G2, G10 stand). Titles follow "Title - SSPC Studio" or "Title - Só Saio Pra Comer", not the `<number> <title>` convention of the constitution.
+- `DESIGN.md` copied to the repository root from the owner's file (T016); `npm run design:lint`: 0 errors, 17 `orphaned-tokens` warnings, as expected.
+
+Per new screen (T019): id, real title, theme, device type, the prompt used, the date. Phase closed on: 2026-11-02, after 1 review round (round 2 was not run: the Stitch edits did not persist, and the owner accepted the remaining deviations).
+
+| # | Screen | Real title (from Stitch) | Theme | Device | Id | Date |
+|---|--------|--------------------------|-------|--------|----|------|
+| 1 | Dialog | Confirmação de Atualização (Mobile) - SSPC Studio | light | MOBILE | `d3bb60db0d1f424892279f8c237b8c9c` | 2026-11-02 |
+| 2 | Dialog | Confirmação de Atualização (Mobile - Dark Theme) - SSPC Studio | dark | MOBILE | `445d574450b74b5083bb376190890392` | 2026-11-02 |
+| 3 | Início | Início (Mobile) - SSPC Studio | light | MOBILE | `21e45cf522dc45bfa90fa4600f927def` | 2026-11-02 |
+| 4 | Início | Início (Mobile - Dark Theme) - SSPC Studio | dark | MOBILE | `3a0ac619ca354a24b1c522bde7f4ef8a` | 2026-11-02 |
+| 5 | Insecure-connection notice | Início (Aviso de Conexão - Mobile) - SSPC Studio | light | MOBILE | `4e3c5cec9f9f49bea2bf0b8da55dbc58` | 2026-11-02 |
+| 6 | Insecure-connection notice | Início (Aviso de Conexão - Mobile - Dark Theme) - SSPC Studio | dark | MOBILE | `c934ee1d3af543688c193df5033956fb` | 2026-11-02 |
+
+Note: the first generation of all six (DESKTOP 2560×2048, ids `a4e5c269…`, `7e2aefb0…`, `58572cfb…`, `754213ef…`, `5ac6fcbd…`, `a794d1fb…`) was deleted by the owner and replaced by the six above, which the owner regenerated as mobile. Those six desktop screens are no longer in the project and are not part of the design phase; the regenerated screens are the ones T020 reviews.
+
+Prompt used for the first (desktop) dialog, now replaced: mobile confirmation dialog, light, over a dimmed "Início" screen; heading "Nova versão disponível"; body "Atualizar agora reinicia o app. Texto não salvo será perdido."; stacked 48 px pills "Atualizar agora" (primary) and "Agora não" (primary-container); no close icon; Portuguese only; layout of "Visitas - SSPC Studio". Stitch's reply also offered a dark-theme version and a loading state, which are not in T019 and were not used.
 
 #### Review of the new designs (filled by T020, finalised by T021)
 
-No round has been run yet. Each round is one table per screen and theme: item, expected (from `DESIGN.md` or the existing component), found in Stitch. The loop ends when a round has no deviation; the number of rounds is recorded here.
+Round 1 (2026-11-02), read with `download_file` from the six regenerated mobile screens (ids in the table above). Each row is one deviation: item, expected (`DESIGN.md` token or spec copy), found in Stitch.
+
+| Round | Screen | Theme | Item | Expected | Found |
+|-------|--------|-------|------|----------|-------|
+| 1 | Dialog | light | Title size | `headline-md` 28px | 26px |
+| 1 | Dialog | light | Background behind the dialog | dimmed "Início" (spec) | dimmed "Visitas" list under an "Início" header |
+| 1 | Dialog | dark | Card padding | 20px | 24px (`p-6`) |
+| 1 | Dialog | dark | Secondary button text | `on-primary-container` `#E4EDDB` | `#F4EDE3` |
+| 1 | Início | light | Footer copy | only the name and the message (spec FR-016) | extra line "Só Saio Pra Comer • Teresina, PI" and a decorative emblem with a second line of text |
+| 1 | Insecure notice | light | Header chip | none specified (connection chip shows "Conectado") | chip "Offline" with a red dot; the spec copy is not "Offline" |
+| 1 | Insecure notice | light | Banner | `body-sm` 14px, radius 20px, padding 16px | inline style: 13px, radius 18px, padding 14px 16px |
+| 1 | Insecure notice | dark | Header chip | none specified | chip "Offline" with a red dot |
+| 1 | Insecure notice | dark | Card copy | name only (spec: no other text) | extra line "Ambiente de Gestão Gastronômica" |
+| 1 | Insecure notice | dark | Card padding | 20px | 24px (`p-6`) |
+
+Checked and matching: 28px radius on the dialog and cards; 48px button heights; primary and secondary button colours in both themes; banner colours and copy; Início tab bar (Início, Visitas, Perfil) and the active tab tint; the connection chip "Conectado" on the home screens; light and dark parity of the Início layout.
+
+Devices: all six are `MOBILE` (the owner regenerated them). The Stitch artboards include an iOS status bar (9:41) and a home indicator; they are device chrome, not design, and are left as they are.
+
+Edits applied in round 1 (owner approved each call):
+
+- **Edit 1, dialog light** (`d3bb60db0d1f424892279f8c237b8c9c`): title set to 28px; background replaced by the dimmed Início screen. The edit added the footer line "✦ Só Saio Pra Comer • Teresina, PI ✦" inside the background card. That is extra copy, the same deviation as Início light in round 1. Not yet fixed; round 2 checks it.
+
+- **Edit 2, dialog dark** (`445d574450b74b5083bb376190890392`): card padding set to 20px; secondary button text set to `#E4EDDB`. Applied (DOM operations confirmed).
+- **Edit 3, Início light** (`21e45cf522dc45bfa90fa4600f927def`): footer line 'Só Saio Pra Comer • Teresina, PI' removed (DOM operation confirmed). Icon, title, message, chip and tab bar kept.
+- **Edit 4, insecure notice light** (`4e3c5cec9f9f49bea2bf0b8da55dbc58`): 'Offline' chip removed; banner set to 14px, 20px radius, 16px padding (DOM operations confirmed). Banner copy, name-only card and tab bar kept.
+- **Edit 5, insecure notice dark** (`c934ee1d3af543688c193df5033956fb`): 'Offline' chip removed; line 'Ambiente de Gestão Gastronômica' removed; card padding set to 20px; banner kept at 14px / 20px radius / 16px padding (DOM operations confirmed).
+- The dark Início (`3a0ac619ca354a24b1c522bde7f4ef8a`) had no round-1 deviation, so no edit.
+
+Round 2 check (2026-11-02): the five round-1 edits (1 to 5 above) are NOT in the stored screens. `edit_screens` returned DOM operations for each, but re-downloading the HTML with `download_file` (both the `fileEntries/html` name and the `files/<id>` name, for the light dialog) still shows the original markup: 26px title, dimmed Visitas background, `p-6` padding, "Offline" chips, the footer line and "Ambiente de Gestão Gastronômica". Until the saved file shows the change, the edits are not applied; this is recorded as an open issue, not as a fix. Dark Início was not edited and is unchanged.
+
+Re-check after a 2-minute wait (2026-11-02): the light dialog's saved HTML is unchanged (26px title, Visitas background). The edits have not synced.
+
+**Owner decision (2026-11-02, Augusto Silva):** the six mobile screens are close enough to the design source. The remaining round-1 deviations are accepted (SC-012: "the owner has accepted the remaining deviation by name and date"). They are fixed in the repository, not in Stitch. Where a Stitch screen and `DESIGN.md` disagree, `DESIGN.md` wins (FR-025), so the components are built from the tokens. Disposition:
+
+| Round-1 deviation | Disposition in the code |
+|-------------------|-------------------------|
+| Dialog title 26px (light) | `SspcDialog` uses `headline-md` 28px (T038, T039) |
+| Dialog card padding 24px (dark) | `SspcDialog` padding 20px (T039) |
+| Dialog secondary text `#F4EDE3` (dark) | `SspcDialog` secondary label uses `on-primary-container` (T039) |
+| Dialog background shows "Visitas" (light and dark) | The dialog overlays the current screen; the background is not a design element (accepted) |
+| Início footer line "Só Saio Pra Comer • Teresina, PI" and decorative emblem | Not built; the home card has the name and the provisional message only (T091, T102; OI-7) |
+| Notice "Offline" chip (light and dark) | Not built; the app-bar connection chip reports the device connection as A-012 requires |
+| Banner 13px / 18px radius / 14px padding (light) | `SspcBanner` `error` tone uses `body-sm` 14px, radius 20, padding 16 (T061) |
+| Notice card line "Ambiente de Gestão Gastronômica" (dark) | Not built; the card has the name only |
+| Notice card padding 24px (dark) | Card padding 20 (T061) |
+| Stitch artboards show an iOS status bar (9:41) and home indicator | Device chrome, not part of the design; not built |
+
+Rounds: 1 (review done; the owner accepted the remaining deviations and they move to the code, see above).
+
+**Correction (2026-11-02, T022 re-check):** the earlier statement that the five Stitch edits did not persist was wrong. Re-listing the project shows new HTML file ids for five of the six screens (all except the dark Início), so the edits were saved after the earlier reads. The light dialog now has the 28px title and an Início-style dimmed background, but that background card carries new copy ("Avaliações culinárias sincronizadas e prontas para edição") and has no tab bar. The owner (Augusto Silva) accepted this new copy on 2026-11-02; it is part of the accepted design. It appears only in the dimmed background, which is not a design element for the dialog. Closed on 2026-11-02 after 1 review round. Round 2 is blocked until the edits show in the saved screens. Round 2: re-read all six screens and check the fixes; the light dialog's background still has the footer line from edit 1, so round 2 will raise it. Next: remaining edits (one approved call per screen), then round 2 reads all six screens again.
 
 ### R-15 Catalogue excluded from production (Verified)
 

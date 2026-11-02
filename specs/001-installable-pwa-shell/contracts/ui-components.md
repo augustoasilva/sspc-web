@@ -31,7 +31,7 @@ Slots: `[icon]`, default (message). Output: `action` (emitted only when an actio
 
 Seed cases: given a long message, when rendered at 320 px, then the message truncates and the action stays reachable; given `busy`, then the action is disabled with the loading state; given `tone=error`, then its text and container tokens reach ≥ 4.5:1 in both themes (T076); given no `actionLabel`, then no button is rendered and axe reports no violations. A message that must be read in full (the insecure-connection notice is two sentences) wraps instead of truncating when no action competes for the row.
 
-## SspcDialog (`sspc-dialog`) — starting values from research G1, replaced by the aligned Stitch design (T021)
+## SspcDialog (`sspc-dialog`) — aligned with the Stitch design (Phase 2, T021; R-14)
 
 | Input/Model | Type | Notes |
 |-------------|------|-------|
