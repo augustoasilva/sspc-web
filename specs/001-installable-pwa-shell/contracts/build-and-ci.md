@@ -35,7 +35,7 @@
 
 ## CI workflow (`.github/workflows/ci.yml`)
 
-Triggers, permissions, concurrency, pins and checkout rules as in research R-18: `pull_request` (bases `develop`, `main`; `opened`, `synchronize`, `reopened`, `edited`), `push` (`develop`, `main`), `workflow_dispatch`; `permissions: contents: read`; no secrets; no `paths-ignore`; every job without `if` or `continue-on-error` except `branch-guard`'s `if: github.event_name == 'pull_request'` (enforced by `workflow.mjs`, as are the triggers, the permissions, the concurrency block and the list of required jobs). Every job that runs `npm` or `node` sets Node up with `actions/setup-node` (`node-version: 24`, no cache); `branch-guard` runs only a shell script and needs no Node.
+Triggers, permissions, concurrency, pins and checkout rules as in research R-18. The workflow runs on each push to an open pull request into `develop` or `main` (`pull_request`, types `opened`, `synchronize`, `reopened`, `edited`) and on each push to `develop` or `main` after a merge (`push`); it does not run on pushes to other branches: `pull_request` (bases `develop`, `main`; `opened`, `synchronize`, `reopened`, `edited`), `push` (`develop`, `main`), `workflow_dispatch`; `permissions: contents: read`; no secrets; no `paths-ignore`; every job without `if` or `continue-on-error` except `branch-guard`'s `if: github.event_name == 'pull_request'` (enforced by `workflow.mjs`, as are the triggers, the permissions, the concurrency block and the list of required jobs). Every job that runs `npm` or `node` sets Node up with `actions/setup-node` (`node-version: 24`, no cache); `branch-guard` runs only a shell script and needs no Node.
 
 | Job (check name) | Steps | Fails when |
 |------------------|-------|-----------|
