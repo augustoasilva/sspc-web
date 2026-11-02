@@ -7,9 +7,9 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 | Field | Value |
 |-------|-------|
 | Date | 2026-11-02 |
-| iPhone model and iOS version | pending (owner) |
+| iPhone model and iOS version | iPhone 15 Pro Max, iOS 26.6.1 (owner) |
 | App version and build tested | installed: `0.0.0+dev` (build `first`); test server later switched to `0.0.1+dev` (build `second`) |
-| Storage protection observed (R-04) | pending (owner, from About; D2 step 3) |
+| Storage protection observed (R-04) | "Protegido no aparelho" (owner, from About; D2 step 3) |
 | Total time of one complete D1–D4 run (SC-009: 30 minutes or fewer, phone trust already done) | pending |
 
 ## D1. Web option off and the counter
@@ -27,10 +27,12 @@ Fill this record only with results. Do not write addresses, hostnames, device id
 |------|--------|-------|
 | 1. Installed to the Home Screen; was 10 seconds after the first screen enough? | pass (owner reported, case 2) | 10 seconds enough: owner to confirm |
 | 2. Five online launches: frame count of each (60 or fewer passes, FR-003) | pass (owner reported, case 3) | measured in seconds instead of frames (owner's choice, option 1): each launch opened in under 0.5 s, at 60 fps that is at most 30 frames, within the 60-frame limit. Start point: the owner's zoom-in on the tap, to confirm |
-| 3. Connection chip "Conectado"; About shows name, description, version, "Online", storage | partial | chip "Conectado" and "Sem conexão" checked by owner; About content and storage value pending |
+| 3. Connection chip "Conectado"; About shows name, description, version, "Online", storage | pass (owner reported) | chip "Conectado" and "Sem conexão"; About shows the name, description, version `0.0.3+dev (fourth)`, "Online" and "Protegido no aparelho" |
 | 4. Light and dark switch live, Portuguese text, larger text sizes do not clip | pass (owner reported, catalogue at `/_ds`, test build) | live switch, typed text kept, larger text without clipping, reduced motion stops the chip dot, dialog closes and returns focus; every catalogue section compared with its Stitch board in light and dark: no difference reported. During the check the app bar and tab bar were squeezed on the long catalogue page; fixed (bars keep their height) and re-checked |
-| 5. About first, offline (photo present or not yet supplied) | not run | |
-| 6. Resume after switching apps; behaviour after a long absence | not run | |
+| 5. About first, offline (photo present or not yet supplied) | pass (owner reported) | the page loads offline with no missing text; the photo is the gradient block until OI-3 |
+| 6. Resume after switching apps; behaviour after a long absence | pass (owner reported) | Perfil shows after switching apps, no blank screen; the long-absence case is not run |
+| Início and Sobre against Stitch, light and dark (T095) | pass (owner reported) | no differences reported |
+| Connection value on About changes within 2 s (T096) | pass (owner reported) | 1 second (owner reported; direction not split) |
 
 ## D3. Offline start (Story 2, FR-037)
 

@@ -78,7 +78,7 @@ App image, started with `--user 65532:65532 --read-only --tmpfs /tmp --cap-drop 
 5. The CSP header equals the table above exactly; the other three headers are present.
 6. `GET /_ds` returns the fallback page and `grep -r "sspc-catalog"` over the served tree finds nothing, that selector of the catalogue page being the marker of its chunk (FR-024).
 7. Container logs contain zero lines with `"level":"error"` and **no line that mentions a request** (no `"request"`, no `"uri"`, no access-log logger); `caddy adapt` of the image's Caddyfile shows no access log and the `request delete` filter on the default log.
-8. The reported version: `main-*.js` contains the `APP_VERSION` passed to the build.
+8. The reported version: a served `.js` file contains the `APP_VERSION` passed to the build (About is a lazy route, so the string sits in a lazy chunk; checked on 2026-11-02, see T071 in tasks.md).
 9. The served tree (listed with `docker create` and `docker cp`, never by running a shell in the image) contains only allowlisted paths: no `*.map`, no `sourceMappingURL` in any `*.js`, no `.ts`, `.md`, `Dockerfile`, `Caddyfile` or `DESIGN*` file (SEC-004, SEC-005).
 10. `index.html`, every `*.css`, `manifest.webmanifest` and `ngsw.json` contain no absolute `http(s)://` URL; `ngsw.json` lists only files under `/srv` and has no `dataGroups` (SEC-002).
 

@@ -92,6 +92,18 @@ describe('App shell', () => {
   });
 
   it.each([
+    { name: 'given the home route, then the connection chip is visible (US4 scenario 7)', url: '/' },
+    { name: 'given the about route, then the connection chip is visible (US4 scenario 7)', url: '/sobre' },
+  ])('$name', async ({ url }) => {
+    // given / when
+    const { fixture } = await setup(url, true);
+    // then
+    const chip = fixture.nativeElement.querySelector('sspc-status-chip') as HTMLElement | null;
+    expect(chip).not.toBeNull();
+    expect(chip?.textContent?.trim()).toContain('Conectado');
+  });
+
+  it.each([
     { name: 'given the home route, then the title is Início and there is no back control', url: '/', title: 'Início', back: false },
     { name: 'given the about route, then the title is Sobre and the back control is shown', url: '/sobre', title: 'Sobre', back: true },
   ])('$name', async ({ url, title, back }) => {

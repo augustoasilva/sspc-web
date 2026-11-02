@@ -96,14 +96,18 @@ if grep -q '"level":"error"' <<<"$LOGS"; then fail "7: error lines in the contai
 if grep -Eq '"request"|"uri"|access' <<<"$LOGS"; then fail "7: a log line mentions a request"; fi
 pass "7 logs have no errors and no request lines"
 
-# 8. The served bundle carries the version passed at build time. Deferred: nothing reads
-# APP_VERSION until the About page shows it (T089, Phase 8). Enable with SMOKE_CHECK_VERSION=1.
+# 8. The served JavaScript carries the version passed at build time. About is a lazy route, so the
+# string sits in a lazy chunk, not in main-*.js; the check reads every served .js file (the
+# contract's main-*.js wording is updated to match). Enable with SMOKE_CHECK_VERSION=1 (T089).
 if [[ "${SMOKE_CHECK_VERSION:-0}" == 1 ]]; then
-  curl -s "$BASE/$MAIN" -o "$WORK/main.js"
-  grep -qF "$APP_VERSION" "$WORK/main.js" || fail "8: $APP_VERSION not in $MAIN"
-  pass "8 version in the bundle"
+  CID8="$(docker create "$IMAGE")"
+  mkdir -p "$WORK/tree8"
+  docker cp "$CID8:/srv/." "$WORK/tree8/" >/dev/null
+  docker rm "$CID8" >/dev/null
+  grep -rqF --include='*.js' "$APP_VERSION" "$WORK/tree8" || fail "8: $APP_VERSION not in any served .js file"
+  pass "8 version in the served bundle"
 else
-  echo "skip: 8 version in the bundle (deferred to T089; set SMOKE_CHECK_VERSION=1 to run it)"
+  echo "skip: 8 version in the bundle (set SMOKE_CHECK_VERSION=1 to run it)"
 fi
 
 # 9. The served tree holds only allowlisted files (listed with docker create and docker cp).
@@ -134,4 +138,4 @@ done
 grep -Eq '"dataGroups": *\[\]' "$SRV/ngsw.json" || fail "10: ngsw.json has data groups"
 pass "10 no remote URLs, no data groups"
 
-echo "App image assertions passed for $IMAGE (assertion 8 deferred to T089 unless SMOKE_CHECK_VERSION=1)."
+echo "App image assertions passed for $IMAGE (assertion 8 runs only with SMOKE_CHECK_VERSION=1)."
