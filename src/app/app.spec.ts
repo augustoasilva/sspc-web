@@ -13,8 +13,15 @@ function setOnLine(value: boolean): void {
   Object.defineProperty(navigator, 'onLine', { configurable: true, get: () => value });
 }
 
-async function setup(url: string, online: boolean) {
+function setIsSecureContext(value: boolean): void {
+  Object.defineProperty(globalThis, 'isSecureContext', { configurable: true, value });
+}
+
+const INSECURE_MESSAGE = 'Conexão insegura. Abra o endereço HTTPS confiável para instalar e usar offline.';
+
+async function setup(url: string, online: boolean, secure = true) {
   setOnLine(online);
+  setIsSecureContext(secure);
   TestBed.configureTestingModule({ imports: [App], providers: [provideRouter(routes), provideLocationMocks()] });
   const router = TestBed.inject(Router);
   await router.navigateByUrl(url);
@@ -34,6 +41,44 @@ async function setup(url: string, online: boolean) {
 describe('App shell', () => {
   afterEach(() => {
     Reflect.deleteProperty(navigator, 'onLine');
+    Reflect.deleteProperty(globalThis, 'isSecureContext');
+    vi.unstubAllGlobals();
+  });
+
+  it.each([
+    {
+      name: 'given an insecure origin, when the shell renders, then the banner slot shows the HTTPS notice with tone error, no action and no close control',
+      secure: false,
+      banner: { text: INSECURE_MESSAGE, tone: 'error', hasButton: false },
+    },
+    {
+      name: 'given a secure origin, when the shell renders, then no banner is shown',
+      secure: true,
+      banner: null,
+    },
+  ])('$name', async ({ secure, banner }) => {
+    // given / when
+    const { fixture } = await setup('/', true, secure);
+    // then
+    const element = fixture.nativeElement as HTMLElement;
+    const shown = element.querySelector('[data-slot="banner"] sspc-banner');
+    if (banner === null) {
+      expect(shown).toBeNull();
+      return;
+    }
+    expect(shown?.textContent?.trim()).toBe(banner.text);
+    expect(shown?.getAttribute('data-tone')).toBe(banner.tone);
+    expect(shown?.querySelector('button') !== null).toBe(banner.hasButton);
+  });
+
+  it('given the shell starts, when it renders, then it makes no network request (offline start, FR-005)', async () => {
+    // given
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    // when
+    await setup('/', true, true);
+    // then
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 
   it.each([

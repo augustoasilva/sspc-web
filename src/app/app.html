@@ -10,7 +10,11 @@
 </sspc-app-bar>
 
 <main class="sspc-shell__main">
-  <div class="sspc-shell__banner" data-slot="banner"></div>
+  <div class="sspc-shell__banner" data-slot="banner">
+    @if (!secureContext.secure) {
+      <sspc-banner tone="error">{{ secureContext.message }}</sspc-banner>
+    }
+  </div>
   <router-outlet />
 </main>
 

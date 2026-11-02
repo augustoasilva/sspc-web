@@ -4,20 +4,24 @@ import { ActivatedRouteSnapshot, NavigationEnd, Router, RouterOutlet } from '@an
 import { LucideWifi, LucideWifiOff } from '@lucide/angular';
 import { filter, map } from 'rxjs';
 import { Connectivity } from './core/connectivity';
+import { SecureContext } from './core/secure-context';
 import { SspcAppBar } from './ui/app-bar/app-bar';
+import { SspcBanner } from './ui/banner/banner';
 import { SspcStatusChip } from './ui/status-chip/status-chip';
 import { SspcTabBar, TabItem } from './ui/tab-bar/tab-bar';
 
-// The shell: app bar with the connection chip, a banner slot under it, the routed
-// page, and the bottom tab bar. The title and the back control come from route data.
+// The shell: app bar with the connection chip, a banner slot under it (the insecure-connection
+// notice on plain HTTP), the routed page, and the bottom tab bar. The title and the back
+// control come from route data.
 @Component({
   selector: 'sspc-root',
-  imports: [RouterOutlet, LucideWifi, LucideWifiOff, SspcAppBar, SspcStatusChip, SspcTabBar],
+  imports: [RouterOutlet, LucideWifi, LucideWifiOff, SspcAppBar, SspcBanner, SspcStatusChip, SspcTabBar],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
   protected readonly connectivity = inject(Connectivity);
+  protected readonly secureContext = inject(SecureContext);
   private readonly router = inject(Router);
 
   private readonly url = toSignal(
