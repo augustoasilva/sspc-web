@@ -25,7 +25,8 @@ function sortObject(object) {
 }
 
 export function readFrontMatter(designPath) {
-  const text = readFileSync(designPath, 'utf8');
+  // A Windows checkout (core.autocrlf) writes CRLF; the front matter is read as LF.
+  const text = readFileSync(designPath, 'utf8').replace(/\r\n/g, '\n');
   const match = text.match(/^---\n([\s\S]*?)\n---/);
   if (!match) throw new Error(`${designPath}: no YAML front matter`);
   return parse(match[1]);

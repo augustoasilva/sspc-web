@@ -117,3 +117,17 @@ describe('build-tokens', () => {
     await check(result);
   });
 });
+
+describe('build-tokens line endings', () => {
+  // A Windows checkout with core.autocrlf writes CRLF; the build must read it the same way (DESIGN.md).
+  it('given a design saved with CRLF line endings, when built, then the same tokens as the LF design are produced', async () => {
+    // given
+    const lf = await run('valid-design.md');
+    // when
+    const crlf = await run('valid-design-crlf.md');
+    // then
+    expect(crlf.json).toEqual(lf.json);
+    expect(crlf.css).toBe(lf.css);
+    expect(crlf.site).toBe(lf.site);
+  });
+});
