@@ -1,6 +1,6 @@
 # App image (contracts/http-serving.md §Image runtime contract). Build arguments are the only
 # ones allowed (SEC-004): APP_VERSION, APP_BUILD and SSPC_CATALOG.
-FROM node:26.13.0@sha256:6d2c7d5d074bf72f81ddc252b4fbb5d625bc028eeda49cb4b8c2ff8eda1ee617 AS build
+FROM node:26.13.1@sha256:e18c3ccdf7d71619990b0e85639f506e2028a95410999cab24cc373cbd10e0ac AS build
 ARG APP_VERSION=0.0.0+dev
 ARG APP_BUILD=local
 ARG SSPC_CATALOG=false
