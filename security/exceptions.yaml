@@ -69,3 +69,18 @@ exceptions:
     approver: Augusto Silva (owner)
     approved: 2026-11-02
     expires: 2026-12-02
+  - id: CVE-2026-78661
+    scope: image
+    target: usr/bin/caddy in caddy:2.11.8 (golang.org/x/net/html)
+    rationale: >-
+      The pinned Caddy 2.11.8 binary contains golang.org/x/net v0.60.0; the latest upstream Caddy release
+      (2.11.9) still declares v0.60.0, while this finding is fixed in v0.62.0. No released Caddy image
+      currently contains the fix.
+    compensating_controls: >-
+      The app and site Caddyfiles serve static files only and do not invoke the vulnerable HTML parser;
+      neither config uses the templates handler. HTTP/2 and the admin API are disabled. The images run
+      read-only as UID 65532 with all capabilities dropped and no-new-privileges. Remove this exception
+      when a Caddy image with golang.org/x/net v0.62.0 or later is available.
+    approver: Augusto Silva (owner)
+    approved: 2026-11-22
+    expires: 2026-12-22
