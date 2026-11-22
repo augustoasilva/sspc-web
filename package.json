@@ -46,7 +46,7 @@
     "prettier": "^3.10.1",
     "style-dictionary": "5.8.0",
     "stylelint": "18.0.0",
-    "typescript": "^7.0.2",
+    "typescript": "^6.0.3",
     "typescript-eslint": "8.72",
     "vitest": "^5.1.0",
     "yaml": "2.9.1"
