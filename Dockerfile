@@ -10,7 +10,7 @@ RUN npm ci
 COPY . .
 RUN npm run build -- --define "APP_VERSION='${APP_VERSION}'" --define "APP_BUILD='${APP_BUILD}'" --define "SSPC_CATALOG=${SSPC_CATALOG}"
 
-FROM caddy:2.11.8@sha256:4fcafa98afd1c2e642e353e3c5cf9ddbe892fcee14bc990e7ba2c5b78e51f9cf
+FROM caddy:2.11.9@sha256:4851e54a46b206517c574821bb5cc67f170d2156041e9fbc4c9193b45e84a75b
 # Patched Alpine packages with the fixed versions of the CI scan (brotli, curl): the base image is pinned,
 # so these two are upgraded explicitly. Remove this line when the pinned Caddy image carries them.
 RUN apk upgrade --no-cache brotli-libs curl libcurl
